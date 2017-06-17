@@ -15,10 +15,6 @@ def nanargmax(a):
         multi_idx = np.unravel_index(idx, a.shape)
     return multi_idx
 
-## Activation function
-def relu(x):
-	return max(0, x)
-
 def maxpool(X, f, s):
 	(m, l, w, w) = X.shape
 	pool = np.zeros((m, l, (w-f)/s+1,(w-f)/s+1))
@@ -33,126 +29,175 @@ def maxpool(X, f, s):
 				i+=s
 	return pool
 
-## Returns gradient for all the paramaters in each iteration
-def getgrad(X, y, f1, f2, s1, s2, l1, l2, param1, param2, bias1, bias2, theta3, bias3, reg):
-	#####################################################################################################################
-	#######################################  Feed forward to get all the layers  ########################################
-	#####################################################################################################################
-	# print("param1[2]")
-	# print(param1[2])
-
-	## Calculating first Convolution layer
-	(m, l, w, w) = X.shape
-	conv1 = np.zeros((m,l1,w,w))
-	for ii in range(0,m):
-		image = X[ii,:,:,:]
-		for jj in range(0,l1):
-			for i in range(f1/2,w-f1/2):
-				for j in range(f1/2, w-f1/2):
-					conv1[ii,jj,i,j] = np.sum(param1[jj]*image[:,i-f1/2:i+f1/2+1, j-f1/2:j+f1/2+1]) + bias1[jj]
-					conv1[ii,jj,i,j] = relu(conv1[ii,jj,i,j])
-	# print("conv1[0,2,:,:]")
-	# print(conv1[0,2,:,:])
-
-	## Calculating second Convolution layer
-	conv2 = np.zeros((m,l2,w,w))
-	for ii in range(0,m):
-		image = conv1[ii,:,:,:]
-		for jj in range(0,l2):
-			for i in range(f2/2,w-f2/2):
-				for j in range(f2/2, w-f2/2):
-					conv2[ii,jj,i,j] = np.sum(param2[jj]*image[:,i-f2/2:i+f2/2+1, j-f2/2:j+f2/2+1]) + bias2[jj]
-					conv2[ii,jj,i,j] = relu(conv2[ii,jj,i,j])
-	# print("conv2[0,2,:,:]")
-	# print(conv2[0,2,:,:])
-
-	## Pooled layer with 2*2 size and stride 2, 2
-	pooled_layer = maxpool(conv2, 2, 2)
-	# print("pooled_layer[0,2,:,:]")
-	# print(pooled_layer[0,2,:,:])	
-	fc1 = (pooled_layer.reshape((m,(w/2)*(w/2)*l2))).T
-	# print("fc1[40:50,1]")
-	# print(fc1[40:50,1])
-	out = theta3.dot(fc1) + bias3	#10*m
-	# print("out[:,0]")
-	# print(out[:,0])
-	# print("theta3[:,0]")
-	# print(theta3[:,0])
-	# print("bias3")
-	# print(bias3)
-	######################################################################################################################
-	########################################  Using softmax function to get cost  ########################################
-	######################################################################################################################
+def softmax_cost(out,y, theta3, param1, param2):
 	eout = np.exp(out, dtype=np.float128)
 	probs = eout/sum(eout)
+	
 	p = sum(y*probs)
-	# print("probs[:,0]")
-	# print(probs[:,0])
+	_, m = y.shape
+
 	cost = np.sum(-np.log(p))/m ## (Only data loss. No regularised loss)
-	# print("Cost without reg:"+str(cost))
 	reg_loss = 0.5*reg*(np.sum(theta3*theta3))
 	for i in range(0,l1):
 		reg_loss += 0.5*reg*(np.sum(param1[i]*param1[i]))
 	for i in range(0,l2):
 		reg_loss += 0.5*reg*(np.sum(param2[i]*param2[i]))
 	cost += reg_loss
-	# print("Cost with reg:"+str(cost))
+	return cost,probs
+
+def rotate180(filt):
+	(l,f,f) = filt.shape
+	filt2 = np.zeros((l,f,f))
+	for xx in range(0,l):
+		filt2[xx]=(np.rot90(filt[xx],2))
+	return filt2
+## Returns gradient for all the paramaters in each iteration
+def getgrad(X, Y, f, l1, l2, param1, param2, bias1, bias2, theta3, bias3, reg):
+	#####################################################################################################################
+	#######################################  Feed forward to get all the layers  ########################################
+	#####################################################################################################################
+
+	## Calculating first Convolution layer
+	(m,l,w,w)=X.shape
+	w1 = w-f+1
+	conv1 = np.zeros((m,l1,w1,w1))
+	for ii in range(0,m):
+		im = X[ii]
+		for jj in range(0,l1):
+			filt = rotate180(param1[jj])
+			for x in range(0,w1):
+				for y in range(0,w1):
+					conv1[ii,jj,x,y] = np.sum(im[:,x:x+f,y:y+f]*filt)+bias1[jj]
+	conv1[conv1<=0] = 0 #relu activation
+
+	## Calculating second Convolution layer
+	w2 = w1-f+1
+	conv2 = np.zeros((m,l2,w2,w2))
+	for ii in range(0,m):
+		im = conv1[ii]
+		for jj in range(0,l2):
+			filt = rotate180(param2[jj])
+			for x in range(0,w2):
+				for y in range(0,w2):
+					conv2[ii,jj,x,y] = np.sum(im[:,x:x+f,y:y+f]*filt)+bias2[jj]
+	conv2[conv2<=0] = 0 # relu activation
+
+	## Pooled layer with 2*2 size and stride 2,2
+	pooled_layer = maxpool(conv2, 2, 2)	
+	fc1 = (pooled_layer.reshape((m,(w2/2)*(w2/2)*l2))).T
+	out = theta3.dot(fc1) + bias3	#10*m
+
+	######################################################################################################################
+	########################################  Using softmax function to get cost  ########################################
+	######################################################################################################################
+	cost, probs = softmax_cost(out,Y, theta3, param1, param2)
+	
+	h = np.empty((1,m))
+	y_dash = np.empty((1,m))
+	for i in range(0,m):
+		h[0,i] = np.argmax(probs[:,i])
+		y_dash[0,i] = np.argmax(Y[:,i])
+
+	acc = np.mean((h==y_dash)*np.ones(h.shape))
 	#######################################################################################################################
 	##########################  Backpropagation to get gradient	using chain rule of differentiation  ######################
 	#######################################################################################################################
-	dout = probs - y	#	dL/dout
-	# print(probs)
-	# print(dout)
+	dout = probs - Y	#	dL/dout
+	
 	dtheta3 = dout.dot(fc1.T) + reg*theta3 		##	dL/dtheta3
-	# print(dtheta3[0,20:30])
+
 	dbias3 = sum(dout.T).T.reshape((10,1))		##	dbias3	
+
 	dfc1 = theta3.T.dot(dout)		##	dL/dfc1
-	dpool = dfc1.T.reshape((m, l2, w/2, w/2))
-	# print(dpool[0])
-	dconv2 = np.zeros((m, l2, w, w))
+
+	dpool = dfc1.T.reshape((m, l2, w2/2, w2/2))
+
+	dconv2 = np.zeros((m, l2, w2, w2))
 	for ii in range(0,m):
-		for jj in range(0,l):
+		for jj in range(0,l2):
 			i=0
-			while(i<w):
+			while(i<w2):
 				j=0
-				while(j<w):
+				while(j<w2):
 					(a,b) = nanargmax(conv2[ii,jj,i:i+2,j:j+2]) ## Getting indexes of maximum value in the array
 					dconv2[ii,jj,i+a,j+b] = dpool[ii,jj,i/2,j/2]
-					# print(i+a,j+b)
 					j+=2
 				i+=2
-	# print(dconv2[0,0,10:14,10:14])
+	
+	dconv2[conv2<=0]=0
+
+	dconv1 = np.zeros((m, l2, w1, w1))
 	dparam2 = {}
 	dbias2 = {}
-	dconv1 = np.zeros((m,l1,w,w))
+	for xx in range(0,l2):
+		dparam2[xx] = np.zeros((l1,f,f))
+		dbias2[xx] = 0
 	for ii in range(0,m):
-		image = conv1[ii,:,:,:]
 		for jj in range(0,l2):
-			dparam2[jj] = reg*param2[jj]	#np.zeros((l1,f2,f2))
-			dbias2[jj] = 0
-			for i in range(f2/2,w-f2/2):
-				for j in range(f2/2, w-f2/2):
-					if conv2[ii,jj,i,j]>0:
-						dparam2[jj] += dconv2[ii,jj,i,j]*image[:,i-f2/2:i+f2/2+1, j-f2/2:j+f2/2+1]
-						dbias2[jj] += dconv2[ii,jj,i,j]
-						dconv1[ii,:,i-f2/2:i+f2/2+1, j-f2/2:j+f2/2+1] += dconv2[ii,jj,i,j]*param2[jj]
+			for zz in range(0,l1):
+				filt = param2[jj][zz,:,:]
+				for x in range(0,w1):
+					for y in range(0,w1):
+						if conv1[ii,zz,x,y]>0:
+							# print(x,y)
+							xs = x-f+1
+							ys = y-f+1
+							xe = x+1
+							ye = y+1
+							if xs<0:
+								xs=0
+							if ys<0:
+								ys=0
+							if xe>w2:
+								xe=w2
+							if ye>w2:
+								ye=w2
+							dim = dconv2[ii,jj,xs:xe,ys:ye]
+							# print(filt.shape)
+							# print(dim.shape)
+							(a,b)=dim.shape
+							if xe<=w2 and ye<=w2:
+								filt2 = filt[-a:,-b:]
+							if ye>w2 and xe<=w2:
+								filt2 = filt[-a:,0:b]
+							if xe>w2 and ye<=w2:
+								filt2 = filt[0:a,-b:]
+							if xe>w2 and ye>w2:
+								filt2 = filt[0:a,0:b]
+							# print(xs,xe)
+							# print(ys,ye)
+							# print(filt)
+							dconv1[ii,zz,x,y]+=np.sum(dim*filt2)
+	for jj in range(0,l2):
+		for zz in range(0,l1):
+			for x in range(0,f):
+				for y in range(0,f):
+					dparam2[jj][zz,x,y] = reg*param2[jj][zz,x,y]
+					for ii in range(0,m):
+						dparam2[jj][zz,x,y]+=np.sum(dconv2[ii,jj]*conv1[ii,zz,x:x+w2,y:y+w2])
+		for ii in range(0,m):
+			dbias2[jj] += np.sum(dconv2[ii,jj])
+
+
 	dparam1 = {}
 	dbias1 = {}
-	for ii in range(0,m):
-		image = X[ii,:,:,:]
-		for jj in range(0,l1):
-			dparam1[jj] = reg*param1[jj]	#np.zeros((3,f1,f1))
-			dbias1[jj] = 0
-			for i in range(f1/2,w-f1/2):
-				for j in range(f1/2, w-f1/2):
-					if conv1[ii,jj,i,j]>0:
-							dparam1[jj] += dconv1[ii,jj,i,j]*image[:,i-f1/2:i+f1/2+1, j-f1/2:j+f1/2+1]
-							dbias1[jj] += dconv1[ii,jj,i,j]
-	# print("dparam1[2]")
-	# print(dparam1[2])
-	return [dparam1, dparam2, dbias1, dbias2, dtheta3, dbias3, cost]
+	for xx in range(0,l1):
+		dparam1[xx] = np.zeros((3,f,f))
+		dbias1[xx] = 0
+	
+	for jj in range(0,l1):
+		for zz in range(0,3):
+			for x in range(0,f):
+				for y in range(0,f):
+					dparam1[jj][zz,x,y] = reg*param1[jj][zz,x,y]
+					for ii in range(0,m):
+						dparam1[jj][zz,x,y]+=np.sum(dconv1[ii,jj]*X[ii,zz,x:x+w1,y:y+w1])
+		for ii in range(0,m):				
+			dbias1[jj] += np.sum(dconv1[ii,jj])
+	
+	return [dparam1, dparam2, dbias1, dbias2, dtheta3, dbias3, cost, acc]
 
-		
+
 def initialize_param(f, l):
 	return 0.001*np.random.rand(l, f, f)
 
@@ -160,23 +205,21 @@ def initialize_theta(l_out, l_in):
 	return 0.001*np.random.rand(l_out, l_in)
 
 ## Returns all the trained parameters
-def cnn_fit(X, y, f1, f2, s1, s2, l1, l2, l_out, alpha, num_iter, reg, param1, param2, bias1, bias2, theta3, bias3, cost):
+def cnn_fit(X, y, f, l1, l2, l_out, alpha, num_iter, reg, param1, param2, bias1, bias2, theta3, bias3, cost, acc):
 	#	Momentum Gradient Update
 	# mu=0.5
 	
 	for i in range(0,num_iter):
 		# alpha = alpha0/(1+i/2.0)
-		# print(theta3[0,20:30])
-		# print(param1[0])
-		# print(bias1)
 
 		## Fetching gradient for the current parameters
-		[dparam1, dparam2, dbias1, dbias2, dtheta3, dbias3, curr_cost] = getgrad(X, y, f1, f2, s1, s2, l1, l2, param1, param2, bias1, bias2, theta3, bias3, reg)
+		[dparam1, dparam2, dbias1, dbias2, dtheta3, dbias3, curr_cost, curr_acc] = getgrad(X, y, f, l1, l2, param1, param2, bias1, bias2, theta3, bias3, reg)
 		cost.append([curr_cost])
+		acc.append([curr_acc])
 		# print(dtheta3[0,20:30])
 		# print(dparam1[0])
 		# print(dbias1)
-
+		print(str(i+1)+" | Cost::"+str(curr_cost)+" | Accuracy::"+str(curr_acc))
 		## Updating Parameters
 		for j in range(0,l1):
 			# v1[j] = mu*v1[j] -alpha*dparam1[j]
@@ -192,33 +235,38 @@ def cnn_fit(X, y, f1, f2, s1, s2, l1, l2, l_out, alpha, num_iter, reg, param1, p
 		# theta3 += v3
 		theta3 += -alpha*dtheta3
 		bias3 += -alpha*dbias3
-		# printing the status
-		# if (i+1)%(num_iter*0.1) == 0:
 
-	return [param1, param2, bias1, bias2, theta3, bias3, cost]
+
+	return [param1, param2, bias1, bias2, theta3, bias3, cost, acc]
 
 ## Predict class of each row of matrix X
-def predict(X, param1, param2, bias1, bias2, theta3, bias3, f1, f2, s1, s2, l1, l2, l_out):	
-	(m, l, w, w) = X.shape
-	conv1 = np.zeros((m,l1,w,w))
+def predict(X, param1, param2, bias1, bias2, theta3, bias3, f, l1, l2, l_out):	
+	(m,l,w,w)=X.shape
+	w1 = w-f+1
+	conv1 = np.zeros((m,l1,w1,w1))
 	for ii in range(0,m):
-		image = X[ii,:,:,:]
+		im = X[ii]
 		for jj in range(0,l1):
-			for i in range(f1/2,w-f1/2):
-				for j in range(f1/2, w-f1/2):
-					conv1[ii,jj,i,j] = np.sum(param1[jj]*image[:,i-f1/2:i+f1/2+1, j-f1/2:j+f1/2+1]) + bias1[jj]
-					conv1[ii,jj,i,j] = relu(conv1[ii,jj,i,j])
-	conv2 = np.zeros((m,l2,w,w))
+			filt = rotate180(param1[jj])
+			for x in range(0,w1):
+				for y in range(0,w1):
+					conv1[ii,jj,x,y] = np.sum(im[:,x:x+f,y:y+f]*filt)+bias1[jj]
+	conv1[conv1<=0] = 0 #relu activation
+
+	## Calculating second Convolution layer
+	w2 = w1-f+1
+	conv2 = np.zeros((m,l2,w2,w2))
 	for ii in range(0,m):
-		image = conv1[ii,:,:,:]
+		im = conv1[ii]
 		for jj in range(0,l2):
-			for i in range(f2/2,w-f2/2):
-				for j in range(f2/2, w-f2/2):
-					conv2[ii,jj,i,j] = np.sum(param2[jj]*image[:,i-f2/2:i+f2/2+1, j-f2/2:j+f2/2+1]) + bias2[jj]
-					conv2[ii,jj,i,j] = relu(conv2[ii,jj,i,j])
+			filt = rotate180(param2[jj])
+			for x in range(0,w2):
+				for y in range(0,w2):
+					conv2[ii,jj,x,y] = np.sum(im[:,x:x+f,y:y+f]*filt)+bias2[jj]
+	conv2[conv2<=0] = 0 # relu activation
 
 	pooled_layer = maxpool(conv2, 2, 2)
-	fc1 = (pooled_layer.reshape((m,(w/2)*(w/2)*l2))).T
+	fc1 = (pooled_layer.reshape((m,(w2/2)*(w2/2)*l2))).T
 	out = theta3.dot(fc1) + bias3	#10*m
 	probs = np.exp(out)/sum(np.exp(out))
 	h = np.empty((1,m))
@@ -242,25 +290,22 @@ def unpickle(file):
 
 ## Hyperparameters
 l_out = 10
-alpha = 0.0001	#learning rate
+alpha = 0.00001	#learning rate
 w = 32
-f1 = 5
-f2 = 5
-s1 = 1
-s2 = 1
-l1 = 8
-l2 = 8
-num_iter = 15
-reg = 10
-
+f=5
+l1 = 16
+l2 = 16
+num_iter = 4
+reg = 0.01
+batch = 4
 
 
 ## Data preprocessing
-mat1 = unpickle('test_batch')
+mat1 = unpickle('data_batch_1')
 
 X_full = mat1['data']	# m * n
 (m, n) = X_full.shape
-idx = np.random.randint(m, size=1000)
+idx = np.random.randint(m, size=10000)
 X = X_full[idx,:]
 (m, n) = X.shape
 X = X.reshape(m, 3, w, w)
@@ -268,9 +313,7 @@ X = X.reshape(m, 3, w, w)
 y_dash = np.array(mat1['labels'])	# m * 1
 y_dash = y_dash[idx]
 y_dash = y_dash.reshape(1, m)
-
-print(X.shape)
-print(y_dash.shape)
+print("Y mean:"+str(np.mean(y_dash)))
 y = np.zeros((l_out,m))	# l2 * m
 for i in range(0,m):
 	y[y_dash[0,i], i]= 1
@@ -278,49 +321,55 @@ for i in range(0,m):
 
 ## Initializing all the parameters
 
-batch = 50
+
 
 param1 = {}
 param2 = {}
 bias1 = {}
 bias2 = {}
 for i in range(0,l1):
-	param1[i] = initialize_param(f1,3)
+	param1[i] = initialize_param(f,3)
 	bias1[i] = 0
 	# v1[i] = 0
 for i in range(0,l2):
-	param2[i] = initialize_param(f2,l1)
+	param2[i] = initialize_param(f,l1)
 	bias2[i] = 0
 	# v2[i] = 0
-theta3 = initialize_theta(l_out, (w/2)*(w/2)*l2)
+w1 = w-f+1
+w2 = w1-f+1
+theta3 = initialize_theta(l_out, (w2/2)*(w2/2)*l2)
 bias3 = np.zeros((l_out,1))
 cost = []
+acc = []
 epoch = m/batch
 
-## Training start here
+print("Alpha:"+str(alpha)+", Reg:"+str(reg)+", Batch Size:"+str(batch))
+# Training start here
 for x in range(0,epoch):
-	out = cnn_fit(X[x*batch:(x+1)*batch], y[:,x*batch:(x+1)*batch], f1, f2, s1, s2, l1, l2, l_out, alpha, num_iter, reg, param1, param2, bias1, bias2, theta3, bias3, cost)
-	[param1, param2, bias1, bias2, theta3, bias3, cost] = out
+	out = cnn_fit(X[x*batch:(x+1)*batch], y[:,x*batch:(x+1)*batch], f, l1, l2, l_out, alpha, num_iter, reg, param1, param2, bias1, bias2, theta3, bias3, cost, acc)
+	[param1, param2, bias1, bias2, theta3, bias3, cost, acc] = out
 	per = float(x+1)/epoch*100
 	print("Epoch:"+str(x+1)+"/"+str(epoch)+", "+str(per)+"% Completed, Cost:"+str(cost[num_iter*(x+1)-1]))
 
 ## saving the trained model parameters
-with open('output.pickle', 'wb') as f:
-	pickle.dump(out, f)
+with open('output.pickle', 'wb') as file:
+	pickle.dump(out, file)
 
-## Opening the saved model parameter
-# pickle_in = open('output.pickle', 'rb')
-# out = pickle.load(pickle_in)
+# Opening the saved model parameter
+pickle_in = open('output.pickle', 'rb')
+out = pickle.load(pickle_in)
 
 [param1, param2, bias1, bias2, theta3, bias3, cost] = out
-output = predict(X, param1, param2, bias1, bias2, theta3, bias3, f1, f2, s1, s2, l1, l2, l_out)
 
 
-acc = np.mean((output==y_dash)*np.ones(output.shape))*100
-print("With Learning Rate:"+str(alpha)+", Strides:"+str(s1)+", Filter Size:"+str(f1)+", L1:"+str(l1)+", L2:"+str(l2)+"Num_iter:"+str(num_iter))
-print("Accuracy:"+str(acc))
-
-plt.plot(cost)
+plt.plot(cost[2:])
 plt.ylabel('cost')
 plt.xlabel('iteration')
 plt.show()
+
+output = predict(X, param1, param2, bias1, bias2, theta3, bias3, f, l1, l2, l_out)
+
+
+acc = np.mean((output==y_dash)*np.ones(output.shape))*100
+print("With Learning Rate:"+str(alpha)+", Filter Size:"+str(f)+", L1:"+str(l1)+", L2:"+str(l2)+"Num_iter:"+str(num_iter))
+print("Accuracy:"+str(acc))
