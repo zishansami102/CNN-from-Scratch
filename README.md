@@ -1,1 +1,1 @@
-# Convolutional-Neural-Network-with-CIFAR-10
+# Convolutional-Neural-Network-with-MNIST

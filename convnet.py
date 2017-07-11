@@ -1,4 +1,5 @@
 import numpy as np
+import gzip
 
 ## Returns idexes of maximum value of the array
 def nanargmax(a):
@@ -139,13 +140,13 @@ def ConvNet(image, label, filt1, filt2, bias1, bias2, theta3, bias3):
 def initialize_param(f, l):
 	return 0.01*np.random.rand(l, f, f)
 
-def initialize_theta(n_output, l_in):
-	return 0.01*np.random.rand(n_output, l_in)
+def initialize_theta(NUM_OUTPUT, l_in):
+	return 0.01*np.random.rand(NUM_OUTPUT, l_in)
 
 ## Returns all the trained parameters
-def momentumGradDescent(batch, learning_rate, w, l, mu, filt1, filt2, bias1, bias2, theta3, bias3, cost, acc):
+def momentumGradDescent(batch, LEARNING_RATE, w, l, MU, filt1, filt2, bias1, bias2, theta3, bias3, cost, acc):
 	#	Momentum Gradient Update
-	# mu=0.5	
+	# MU=0.5	
 	X = batch[:,0:-1]
 	X = X.reshape(len(batch), l, w, w)
 	y = batch[:,-1]
@@ -177,6 +178,7 @@ def momentumGradDescent(batch, learning_rate, w, l, mu, filt1, filt2, bias1, bia
 	bv3 = np.zeros(bias3.shape)
 
 
+
 	for i in range(0,batch_size):
 		
 		image = X[i]
@@ -199,21 +201,21 @@ def momentumGradDescent(batch, learning_rate, w, l, mu, filt1, filt2, bias1, bia
 		n_correct+=acc_
 
 	for j in range(0,len(filt1)):
-		v1[j] = mu*v1[j] -learning_rate*dfilt1[j]/batch_size
+		v1[j] = MU*v1[j] -LEARNING_RATE*dfilt1[j]/batch_size
 		filt1[j] += v1[j]
-		# filt1[j] -= learning_rate*dfilt1[j]/batch_size
-		bv1[j] = mu*bv1[j] -learning_rate*dbias1[j]/batch_size
+		# filt1[j] -= LEARNING_RATE*dfilt1[j]/batch_size
+		bv1[j] = MU*bv1[j] -LEARNING_RATE*dbias1[j]/batch_size
 		bias1[j] += bv1[j]
 	for j in range(0,len(filt2)):
-		v2[j] = mu*v2[j] -learning_rate*dfilt2[j]/batch_size
+		v2[j] = MU*v2[j] -LEARNING_RATE*dfilt2[j]/batch_size
 		filt2[j] += v2[j]
-		# filt2[j] += -learning_rate*dfilt2[j]/batch_size
-		bv2[j] = mu*bv2[j] -learning_rate*dbias2[j]/batch_size
+		# filt2[j] += -LEARNING_RATE*dfilt2[j]/batch_size
+		bv2[j] = MU*bv2[j] -LEARNING_RATE*dbias2[j]/batch_size
 		bias2[j] += bv2[j]
-	v3 = mu*v3 - learning_rate*dtheta3/batch_size
+	v3 = MU*v3 - LEARNING_RATE*dtheta3/batch_size
 	theta3 += v3
-	# theta3 += -learning_rate*dtheta3/batch_size
-	bv3 = mu*bv3 -learning_rate*dbias3/batch_size
+	# theta3 += -LEARNING_RATE*dtheta3/batch_size
+	bv3 = MU*bv3 -LEARNING_RATE*dbias3/batch_size
 	bias3 += bv3
 
 	cost_ = cost_/batch_size
@@ -255,3 +257,25 @@ def unpickle(file):
 	with open(file, 'rb') as fo:
 		dict = cPickle.load(fo)
 	return dict
+
+
+def extract_data(filename, num_images, IMAGE_WIDTH):
+	"""Extract the images into a 4D tensor [image index, y, x, channels].
+	Values are rescaled from [0, 255] down to [-0.5, 0.5].
+	"""
+	print('Extracting', filename)
+	with gzip.open(filename) as bytestream:
+		bytestream.read(16)
+		buf = bytestream.read(IMAGE_WIDTH * IMAGE_WIDTH * num_images)
+		data = np.frombuffer(buf, dtype=np.uint8).astype(np.float32)
+		data = data.reshape(num_images, IMAGE_WIDTH*IMAGE_WIDTH)
+		return data
+
+def extract_labels(filename, num_images):
+	"""Extract the labels into a vector of int64 label IDs."""
+	print('Extracting', filename)
+	with gzip.open(filename) as bytestream:
+		bytestream.read(8)
+		buf = bytestream.read(1 * num_images)
+		labels = np.frombuffer(buf, dtype=np.uint8).astype(np.int64)
+	return labels
