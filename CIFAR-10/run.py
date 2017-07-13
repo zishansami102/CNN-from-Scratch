@@ -1,3 +1,5 @@
+PICKLE_FILE = 'output.pickle'
+PICKLE_FILE = 'trained.pickle'
 import numpy as np
 import scipy.io as sio
 import matplotlib.pyplot as plt
@@ -24,6 +26,8 @@ NUM_FILT2 = 16
 BATCH_SIZE = 8
 NUM_EPOCHS = 5	 # number of iterations
 MU = 0.95
+PICKLE_FILE = 'output.pickle'
+PICKLE_FILE = 'trained.pickle'
 
 
 data_dash = unpickle('data_batch_1')
@@ -63,7 +67,7 @@ theta3 = initialize_theta(NUM_OUTPUT, (w2/2)*(w2/2)*NUM_FILT2)
 bias3 = np.zeros((NUM_OUTPUT,1))
 cost = []
 acc = []
-# pickle_in = open('output.pickle', 'rb')
+# pickle_in = open(PICKLE_FILE, 'rb')
 # out = pickle.load(pickle_in)
 
 # [filt1, filt2, bias1, bias2, theta3, bias3, cost, acc] = out
@@ -96,11 +100,11 @@ for epoch in range(0,NUM_EPOCHS):
 	
 	
 ## saving the trained model parameters
-with open('output.pickle', 'wb') as file:
+with open(PICKLE_FILE, 'wb') as file:
 	pickle.dump(out, file)
 
 # Opening the saved model parameter
-pickle_in = open('output.pickle', 'rb')
+pickle_in = open(PICKLE_FILE, 'rb')
 out = pickle.load(pickle_in)
 
 [filt1, filt2, bias1, bias2, theta3, bias3, cost, acc] = out
