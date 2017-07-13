@@ -38,13 +38,14 @@ Output:
 ![alt text](training.png)
 
 
-To load pre-trained models, change the pickle filename from output.pickle to trained.pickle in run.py:`line No. - 27-28` and comment out the training part form the code in run.py:`line No. - 77-104`
+To load pre-trained models, change the pickle filename from output.pickle to trained.pickle in run.py: `line No. - 27-28` and comment out the training part form the code in run.py: `line No. - 77-104`
 
 
 ### Contributing
 
+```
 Contributions are welcome of course ;)
-
+```
 
 ## Acknowledgments
 

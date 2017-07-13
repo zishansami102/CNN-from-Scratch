@@ -19,7 +19,7 @@ These instructions will get you a copy of the project up and running on your loc
 * [CIFAR-10 Dataset](http://www.cs.toronto.edu/~kriz/cifar.html) - Dataset for Object Recgnition
 
 
-### Directories
+### Directoriesa
 
 - `CIFAR-10 `: Object detection with [CIFAR-10](http://www.cs.toronto.edu/~kriz/cifar.html)
 - `MNIST `: Handwritten Digits Recognition with [MNIST](http://yann.lecun.com/exdb/mnist/)
@@ -46,11 +46,14 @@ Output:
 ![alt text](training.png)
 
 
-To load pre-trained models, change the pickle filename from output.pickle to trained.pickle in run.py:`line No. - 27-28` and comment out the training part form the code in run.py:`line No. - 77-104`
+To load pre-trained models, change the pickle filename from output.pickle to trained.pickle in run.py: `line No. - 27-28` and comment out the training part form the code in run.py: `line No. - 77-104`
+
 
 ### Contributing
 
+```
 Contributions are welcome of course ;)
+```
 
 ## Acknowledgments
 
