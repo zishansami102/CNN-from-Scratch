@@ -1,7 +1,7 @@
 # Convolutional Neural Network from scratch
 
-Objective of this work was to write the CNN without using any Deep Learning Library to gain insights of what is actually happening and thus the algorithm is not optimised enough and hence is slow on large dataset like CIFAR-10.
-This piece of code could be used for learning purpose and could be implemented with trained parameter available in the respective folders for any testing applications like Object Detection and Digit recognition.
+Objective of this work was to write the `CNN` without using any Deep Learning Library to gain insights of what is actually happening and thus the algorithm is not optimised enough and hence is slow on large dataset like CIFAR-10.
+This piece of code could be used for `learning purpose` and could be implemented with trained parameter available in the respective folders for any testing applications like `Object Detection` and `Digit recognition`.
 
 ![alt text](cifar.png)
 ![alt text](mnist.png)
@@ -18,10 +18,13 @@ These instructions will get you a copy of the project up and running on your loc
 * [MNIST Dataset](http://yann.lecun.com/exdb/mnist/) - Dataset for Digit Recognition
 * [CIFAR-10 Dataset](http://www.cs.toronto.edu/~kriz/cifar.html) - Dataset for Object Recgnition
 
+
 ### Directories
 
 - `CIFAR-10 `: Object detection with [CIFAR-10](http://www.cs.toronto.edu/~kriz/cifar.html)
 - `MNIST `: Handwritten Digits Recognition with [MNIST](http://yann.lecun.com/exdb/mnist/)
+
+
 
 ### Installing
 
@@ -30,14 +33,20 @@ Clone the repository
 ```
 git clone https://github.com/zishansami102/Convolutional-Neural-Network-from-Scratch
 ```
+
+
 Move into the required directory and then run the following command to start training model
 
 ```
 python run.py
 ```
+
+Output:
+
 ![alt text](training.png)
 
-To load pre-trained models, change the pickle filename from output.pickle to trained.pickle in run.py:line no. - 27-28 and comment out the training part form the code in run.py:line no. - 77-104
+
+To load pre-trained models, change the pickle filename from output.pickle to trained.pickle in run.py:`line No. - 27-28` and comment out the training part form the code in run.py:`line No. - 77-104`
 
 ### Contributing
 
