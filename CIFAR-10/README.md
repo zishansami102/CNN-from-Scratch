@@ -4,7 +4,6 @@ Objective of this work was to write the CNN without using any Deep Learning Libr
 This piece of code could be used for learning purpose and could be implemented with trained parameter available in the respective folders for any testing applications like Object Detection and Digit recognition.
 
 ![alt text](cost_vs_iteration.png)
-![alt text](cifar.png)
 
 ## Getting Started
 
