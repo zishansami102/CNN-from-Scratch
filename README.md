@@ -20,8 +20,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Directories
 
-- 'CIFAR-10 :' Object detection with [CIFAR-10](http://www.cs.toronto.edu/~kriz/cifar.html)
-- 'MNIST :' Handwritten Digits Recognition with [MNIST](http://yann.lecun.com/exdb/mnist/)
+- `CIFAR-10 `: Object detection with [CIFAR-10](http://www.cs.toronto.edu/~kriz/cifar.html)
+- `MNIST `: Handwritten Digits Recognition with [MNIST](http://yann.lecun.com/exdb/mnist/)
 
 ### Installing
 
