@@ -31,11 +31,11 @@ python run.py
 To load pre-trained models, change the pickle filename from output.pickle to trained.pickle in run.py:line no. - 27-28 and comment out the training part form the code in run.py:line no. - 77-104
 
 
-## Contributing
+### Contributing
 
 Contributions are welcome of course ;)
 
-### Acknowledgments
+## Acknowledgments
 
 * [CS231n.stanford.edu](http://cs231n.stanford.edu/) - Most of the theorotical concepts are taken from here
 * [Github Help](https://github.com/dorajam/Convolutional-Network) - Used to gain more concepts
