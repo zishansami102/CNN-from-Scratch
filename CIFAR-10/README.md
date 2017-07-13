@@ -14,7 +14,7 @@ These instructions will get you a copy of the project up and running on your loc
 * [Numpy](http://www.numpy.org/) - Multidimensioanl Mathematical Computing 
 * [Matplotlib](https://matplotlib.org/contents.html) - Used to plot Graph
 * [Pickle](https://docs.python.org/3/library/pickle.html) - Used to save trained models/object
-
+* [CIFAR-10 Dataset](http://www.cs.toronto.edu/~kriz/cifar.html) - Dataset for Object Recgnition
 
 ### Installing
 

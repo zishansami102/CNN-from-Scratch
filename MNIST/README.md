@@ -14,6 +14,7 @@ These instructions will get you a copy of the project up and running on your loc
 * [Numpy](http://www.numpy.org/) - Multidimensioanl Mathematical Computing 
 * [Matplotlib](https://matplotlib.org/contents.html) - Used to plot Graph
 * [Pickle](https://docs.python.org/3/library/pickle.html) - Used to save trained models/object
+* [MNIST Dataset](http://yann.lecun.com/exdb/mnist/) - Dataset for Digit Recognition
 
 ### Installing
 
