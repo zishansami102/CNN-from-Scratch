@@ -25,7 +25,7 @@ BATCH_SIZE = 20
 NUM_EPOCHS = 2	 # number of iterations
 MU = 0.95
 PICKLE_FILE = 'output.pickle'
-PICKLE_FILE = 'trained.pickle'
+# PICKLE_FILE = 'trained.pickle'
 
 m =10000
 X = extract_data('t10k-images-idx3-ubyte.gz', m, IMG_WIDTH)

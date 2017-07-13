@@ -30,8 +30,9 @@ Move into the required directory and then run the following command to start tra
 ```
 python run.py
 ```
-To load pre-trained models, change the pickle filename from output.pickle to trained.pickle in run.py:line no. - 27-28 and comment out the training part form the code in run.py:line no. - 77-104
+![alt text](training.png)
 
+To load pre-trained models, change the pickle filename from output.pickle to trained.pickle in run.py:line no. - 27-28 and comment out the training part form the code in run.py:line no. - 77-104
 
 ### Contributing
 

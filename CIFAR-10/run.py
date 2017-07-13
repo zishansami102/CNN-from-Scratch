@@ -27,7 +27,7 @@ BATCH_SIZE = 8
 NUM_EPOCHS = 5	 # number of iterations
 MU = 0.95
 PICKLE_FILE = 'output.pickle'
-PICKLE_FILE = 'trained.pickle'
+# PICKLE_FILE = 'trained.pickle'
 
 
 data_dash = unpickle('data_batch_1')
