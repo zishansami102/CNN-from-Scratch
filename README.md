@@ -18,6 +18,11 @@ These instructions will get you a copy of the project up and running on your loc
 * [MNIST Dataset](http://yann.lecun.com/exdb/mnist/) - Dataset for Digit Recognition
 * [CIFAR-10 Dataset](http://www.cs.toronto.edu/~kriz/cifar.html) - Dataset for Object Recgnition
 
+### Directories
+
+- 'CIFAR-10 :' Object detection with [CIFAR-10](http://www.cs.toronto.edu/~kriz/cifar.html)
+- 'MNIST :' Handwritten Digits Recognition with [MNIST](http://yann.lecun.com/exdb/mnist/)
+
 ### Installing
 
 Clone the repository
