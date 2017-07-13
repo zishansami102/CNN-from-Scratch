@@ -16,7 +16,7 @@ These instructions will get you a copy of the project up and running on your loc
 * [Pickle](https://docs.python.org/3/library/pickle.html) - Used to save trained models/object
 * [MNIST Dataset](http://yann.lecun.com/exdb/mnist/) - Dataset for Digit Recognition
 
-
+s
 ### Installing
 
 Clone the repository
@@ -37,13 +37,14 @@ Output:
 ![alt text](training.png)
 
 
-To load pre-trained models, change the pickle filename from output.pickle to trained.pickle in run.py:`line No. - 27-28` and comment out the training part form the code in run.py:`line No. - 77-104`
+To load pre-trained models, change the pickle filename from output.pickle to trained.pickle in run.py: `line No. - 27-28` and comment out the training part form the code in run.py: `line No. - 77-104`
 
 
 ### Contributing
 
+```
 Contributions are welcome of course ;)
-
+```
 
 ## Acknowledgments
 
