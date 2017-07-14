@@ -1,5 +1,3 @@
-PICKLE_FILE = 'output.pickle'
-PICKLE_FILE = 'trained.pickle'
 import numpy as np
 import scipy.io as sio
 import matplotlib.pyplot as plt
