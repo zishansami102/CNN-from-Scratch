@@ -1,6 +1,7 @@
 import numpy as np
 import scipy.io as sio
 import matplotlib.pyplot as plt
+from matplotlib import gridspec
 import pickle
 import time
 import random
@@ -24,9 +25,11 @@ NUM_FILT2 = 8
 BATCH_SIZE = 20
 NUM_EPOCHS = 2	 # number of iterations
 MU = 0.95
-PICKLE_FILE = 'output.pickle'
-# PICKLE_FILE = 'trained.pickle'
+# PICKLE_FILE = 'output.pickle'
+PICKLE_FILE = 'trained.pickle'
 
+
+## Data extracting
 m =10000
 X = extract_data('t10k-images-idx3-ubyte.gz', m, IMG_WIDTH)
 y_dash = extract_labels('t10k-labels-idx1-ubyte.gz', m).reshape(m,1)
@@ -75,50 +78,54 @@ acc = []
 
 
 print("Learning Rate:"+str(LEARNING_RATE)+", Batch Size:"+str(BATCH_SIZE))
-# Training start here
 
-for epoch in range(0,NUM_EPOCHS):
-	np.random.shuffle(train_data)
-	batches = [train_data[k:k + BATCH_SIZE] for k in xrange(0, NUM_IMAGES, BATCH_SIZE)]
-	x=0
-	for batch in batches:
-		stime = time.time()
-		# LEARNING_RATE =  LEARNING_RATE/(1+epoch/10.0)
-		out = momentumGradDescent(batch, LEARNING_RATE, IMG_WIDTH, IMG_DEPTH, MU, filt1, filt2, bias1, bias2, theta3, bias3, cost, acc)
-		[filt1, filt2, bias1, bias2, theta3, bias3, cost, acc] = out
-		epoch_acc = round(np.sum(acc[epoch*NUM_IMAGES/BATCH_SIZE:])/(x+1),2)
-		per = float(x+1)/len(batches)*100
-		print("Epoch:"+str(round(per,2))+"% Of "+str(epoch+1)+"/"+str(NUM_EPOCHS)+", Cost:"+str(cost[-1])+", B.Acc:"+str(acc[-1]*100)+", E.Acc:"+str(epoch_acc))
-		ftime = time.time()
-		deltime = ftime-stime
-		remtime = (len(batches)-x-1)*deltime+deltime*len(batches)*(NUM_EPOCHS-epoch-1)
-		hrs = int(remtime)/3600
-		mins = int((remtime/60-hrs*60))
-		secs = int(remtime-mins*60-hrs*3600)
-		print(str(int(deltime))+"secs/batch : ########  "+str(hrs)+"Hrs "+str(mins)+"Mins "+str(secs)+"Secs remaining  ########")
-		x+=1
+# ## Training start here
+
+# for epoch in range(0,NUM_EPOCHS):
+# 	np.random.shuffle(train_data)
+# 	batches = [train_data[k:k + BATCH_SIZE] for k in xrange(0, NUM_IMAGES, BATCH_SIZE)]
+# 	x=0
+# 	for batch in batches:
+# 		stime = time.time()
+# 		# LEARNING_RATE =  LEARNING_RATE/(1+epoch/10.0)
+# 		out = momentumGradDescent(batch, LEARNING_RATE, IMG_WIDTH, IMG_DEPTH, MU, filt1, filt2, bias1, bias2, theta3, bias3, cost, acc)
+# 		[filt1, filt2, bias1, bias2, theta3, bias3, cost, acc] = out
+# 		epoch_acc = round(np.sum(acc[epoch*NUM_IMAGES/BATCH_SIZE:])/(x+1),2)
+# 		per = float(x+1)/len(batches)*100
+# 		print("Epoch:"+str(round(per,2))+"% Of "+str(epoch+1)+"/"+str(NUM_EPOCHS)+", Cost:"+str(cost[-1])+", B.Acc:"+str(acc[-1]*100)+", E.Acc:"+str(epoch_acc))
+# 		ftime = time.time()
+# 		deltime = ftime-stime
+# 		remtime = (len(batches)-x-1)*deltime+deltime*len(batches)*(NUM_EPOCHS-epoch-1)
+# 		hrs = int(remtime)/3600
+# 		mins = int((remtime/60-hrs*60))
+# 		secs = int(remtime-mins*60-hrs*3600)
+# 		print(str(int(deltime))+"secs/batch : ########  "+str(hrs)+"Hrs "+str(mins)+"Mins "+str(secs)+"Secs remaining  ########")
+
+# 		x+=1
 
 	
 	
-## saving the trained model parameters
-with open(PICKLE_FILE, 'wb') as file:
-	pickle.dump(out, file)
+# ## saving the trained model parameters
+# with open(PICKLE_FILE, 'wb') as file:
+# 	pickle.dump(out, file)
 
-# Opening the saved model parameter
+## Opening the saved model parameter
 pickle_in = open(PICKLE_FILE, 'rb')
 out = pickle.load(pickle_in)
 
 [filt1, filt2, bias1, bias2, theta3, bias3, cost, acc] = out
 
-plt.figure(0)
-plt.plot(cost)
-plt.ylabel('Cost')
-plt.xlabel('iteration')
-plt.figure(1)
-plt.plot(acc, color='r')
-plt.ylabel('Accuracy')
-plt.xlabel('iteration')
-plt.show()
+gs = gridspec.GridSpec(2, 1, height_ratios=[1, 1]) 
+ax0 = plt.subplot(gs[0])
+line0, = ax0.plot(cost, color='b')
+ax1 = plt.subplot(gs[1], sharex = ax0)
+line1, = ax1.plot(acc, color='r', linestyle='--')
+plt.setp(ax0.get_xticklabels(), visible=False)
+ax0.legend((line0, line1), ('Loss', 'Accuracy'), loc='upper right')
+# remove vertical gap between subplots
+plt.subplots_adjust(hspace=.0)
+plt.show(block=False)
+
 
 X = test_data[:,0:-1]
 X = X.reshape(len(test_data), IMG_DEPTH, IMG_WIDTH, IMG_WIDTH)
