@@ -50,5 +50,5 @@ Contributions are welcome of course ;)
 ## Acknowledgments
 
 * [CS231n.stanford.edu](http://cs231n.stanford.edu/) - Most of the theorotical concepts are taken from here
-* [Github Help](https://github.com/dorajam/Convolutional-Network) - Used to gain more concepts
+* [dorajam](https://github.com/dorajam/Convolutional-Network) - Used to gain more concepts
 * [Advanced Concepts](http://www.jefkine.com/general/2016/09/05/backpropagation-in-convolutional-neural-networks/) - Still need to be implemented, but helpful to gain insight
