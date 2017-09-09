@@ -12,9 +12,12 @@ def nanargmax(a):
 		multi_idx = np.unravel_index(idx, a.shape)
 	return multi_idx
 
+## MaxPool Definition
 def maxpool(X, f, s):
 	(l, w, w) = X.shape
+	#inintializing pooled output
 	pool = np.zeros((l, (w-f)/s+1,(w-f)/s+1))
+
 	for jj in range(0,l):
 		i=0
 		while(i<w):
@@ -25,6 +28,7 @@ def maxpool(X, f, s):
 			i+=s
 	return pool
 
+## Softmax Loss Definition for multiclass classification
 def softmax_cost(out,y, theta3, filt1, filt2):
 	eout = np.exp(out, dtype=np.float128)
 	probs = eout/sum(eout)
@@ -39,9 +43,7 @@ def ConvNet(image, label, filt1, filt2, bias1, bias2, theta3, bias3):
 	#######################################  Feed forward to get all the layers  ########################################
 	#####################################################################################################################
 
-	## Calculating first Convolution layer
-		
-
+	## Inintializing all the conv and their shapes layers
 	(l,w,w)=image.shape
 	(l1,f,f) = filt2[0].shape
 	l2 = len(filt2)
@@ -51,6 +53,7 @@ def ConvNet(image, label, filt1, filt2, bias1, bias2, theta3, bias3):
 	conv1 = np.zeros((l1,w1,w1))
 	conv2 = np.zeros((l2,w2,w2))
 
+	## Calculating first Convolution layer
 	for jj in range(0,l1):
 		for x in range(0,w1):
 			for y in range(0,w1):
@@ -67,8 +70,9 @@ def ConvNet(image, label, filt1, filt2, bias1, bias2, theta3, bias3):
 	## Pooled layer with 2*2 size and stride 2,2
 	pooled_layer = maxpool(conv2, 2, 2)	
 
+	## Fully coonected hidden layer
 	fc1 = pooled_layer.reshape(((w2/2)*(w2/2)*l2,1))
-	
+	## Output layer
 	out = theta3.dot(fc1) + bias3	#10*1
 	
 	######################################################################################################################
@@ -136,12 +140,12 @@ def ConvNet(image, label, filt1, filt2, bias1, bias2, theta3, bias3):
 	
 	return [dfilt1, dfilt2, dbias1, dbias2, dtheta3, dbias3, cost, acc]
 
-
+## Xavier Inintialzer
 def initialize_param(f, l):
-	return 0.01*np.random.rand(l, f, f)
-
+	return np.random.rand(l, f, f)/np.sqrt(2/(l*f*f))
+## Xavier Inintialzer
 def initialize_theta(NUM_OUTPUT, l_in):
-	return 0.01*np.random.rand(NUM_OUTPUT, l_in)
+	return np.random.rand(NUM_OUTPUT, l_in)/np.sqrt(2/(NUM_OUTPUT+l_in))
 
 ## Returns all the trained parameters
 def momentumGradDescent(batch, LEARNING_RATE, w, l, MU, filt1, filt2, bias1, bias2, theta3, bias3, cost, acc):

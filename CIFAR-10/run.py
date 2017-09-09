@@ -63,7 +63,7 @@ w2 = w1-FILTER_SIZE+1
 theta3 = initialize_theta(NUM_OUTPUT, (w2/2)*(w2/2)*NUM_FILT2)
 
 bias3 = np.zeros((NUM_OUTPUT,1))
-cost = []
+cost = []5
 acc = []
 # pickle_in = open(PICKLE_FILE, 'rb')
 # out = pickle.load(pickle_in)
@@ -77,6 +77,7 @@ print("Learning Rate:"+str(LEARNING_RATE)+", Batch Size:"+str(BATCH_SIZE))
 for epoch in range(0,NUM_EPOCHS):
 	np.random.shuffle(train_data)
 	batches = [train_data[k:k + BATCH_SIZE] for k in xrange(0, NUM_IMAGES, BATCH_SIZE)]
+	print(batches[0].shape)
 	x=0
 	for batch in batches:
 		stime = time.time()
