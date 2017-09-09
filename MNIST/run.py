@@ -6,6 +6,7 @@ import pickle
 import time
 import random
 from convnet import *
+from remtime import *
 
 #####################################################################################################################################
 ################################################## ------ START HERE --------  ######################################################
@@ -91,16 +92,14 @@ for epoch in range(0,NUM_EPOCHS):
 		out = momentumGradDescent(batch, LEARNING_RATE, IMG_WIDTH, IMG_DEPTH, MU, filt1, filt2, bias1, bias2, theta3, bias3, cost, acc)
 		[filt1, filt2, bias1, bias2, theta3, bias3, cost, acc] = out
 		epoch_acc = round(np.sum(acc[epoch*NUM_IMAGES/BATCH_SIZE:])/(x+1),2)
+		
 		per = float(x+1)/len(batches)*100
 		print("Epoch:"+str(round(per,2))+"% Of "+str(epoch+1)+"/"+str(NUM_EPOCHS)+", Cost:"+str(cost[-1])+", B.Acc:"+str(acc[-1]*100)+", E.Acc:"+str(epoch_acc))
+		
 		ftime = time.time()
 		deltime = ftime-stime
 		remtime = (len(batches)-x-1)*deltime+deltime*len(batches)*(NUM_EPOCHS-epoch-1)
-		hrs = int(remtime)/3600
-		mins = int((remtime/60-hrs*60))
-		secs = int(remtime-mins*60-hrs*3600)
-		print(str(int(deltime))+"secs/batch : ########  "+str(hrs)+"Hrs "+str(mins)+"Mins "+str(secs)+"Secs remaining  ########")
-
+		printTime(remtime)
 		x+=1
 
 	
@@ -115,6 +114,8 @@ out = pickle.load(pickle_in)
 
 [filt1, filt2, bias1, bias2, theta3, bias3, cost, acc] = out
 
+
+## Plotting the cost and accuracy over different background
 gs = gridspec.GridSpec(2, 1, height_ratios=[1, 1]) 
 ax0 = plt.subplot(gs[0])
 line0, = ax0.plot(cost, color='b')
@@ -126,7 +127,7 @@ ax0.legend((line0, line1), ('Loss', 'Accuracy'), loc='upper right')
 plt.subplots_adjust(hspace=.0)
 plt.show(block=False)
 
-
+## Computing Test accuracy
 X = test_data[:,0:-1]
 X = X.reshape(len(test_data), IMG_DEPTH, IMG_WIDTH, IMG_WIDTH)
 y = test_data[:,-1]
