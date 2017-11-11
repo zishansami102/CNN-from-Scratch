@@ -137,7 +137,6 @@ def ConvNet(image, label, filt1, filt2, bias1, bias2, theta3, bias3):
 
 		dbias1[jj] = np.sum(dconv1[jj])
 
-	
 	return [dfilt1, dfilt2, dbias1, dbias2, dtheta3, dbias3, cost, acc]
 
 ## Xavier Inintialzer
@@ -181,8 +180,7 @@ def momentumGradDescent(batch, LEARNING_RATE, w, l, MU, filt1, filt2, bias1, bia
 	v3 = np.zeros(theta3.shape)
 	bv3 = np.zeros(bias3.shape)
 
-
-
+	## running gradient Descent
 	for i in range(0,batch_size):
 		
 		image = X[i]
@@ -203,7 +201,8 @@ def momentumGradDescent(batch, LEARNING_RATE, w, l, MU, filt1, filt2, bias1, bia
 
 		cost_+=curr_cost
 		n_correct+=acc_
-
+		
+	## Updating parameters
 	for j in range(0,len(filt1)):
 		v1[j] = MU*v1[j] -LEARNING_RATE*dfilt1[j]/batch_size
 		filt1[j] += v1[j]
@@ -230,7 +229,7 @@ def momentumGradDescent(batch, LEARNING_RATE, w, l, MU, filt1, filt2, bias1, bia
 	return [filt1, filt2, bias1, bias2, theta3, bias3, cost, acc]
 
 ## Predict class of each row of matrix X
-def predict(image, label, filt1, filt2, bias1, bias2, theta3, bias3):
+def predict(image, filt1, filt2, bias1, bias2, theta3, bias3):
 	(l,w,w)=image.shape
 	(l1,f,f) = filt2[0].shape
 	l2 = len(filt2)
