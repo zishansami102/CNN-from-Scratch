@@ -49,11 +49,28 @@ Output:
 To load pre-trained models, change the pickle filename from output.pickle to trained.pickle in run.py: `line No. - 27-28` and comment out the training part form the code in run.py: `line No. - 77-104`
 
 
-### Contributing
+## Contributing
 
+### KWoC Action Plan
+
+#### Short term Issues
+
+See the issue section of this repositiory
+
+#### Long term project
+
+
+Plan is to make a Web App or Mobile App which can predict the digit between 0 to 9 if the user writes anything on the app drawing board.
+You can choose any one or more of the following which you like from the list down bellow and respond on the google group to start:
+
+* A python based API which recieves image as input and gives digit prediction for that image as output
+* Make the front-end of the Web/Mobile App which should have a drawing board on which digits can be drawn and integrate the API
+* 
+
+<!-- 
 ```
 Contributions are welcome of course ;)
-```
+``` -->
 
 ## Acknowledgments
 
