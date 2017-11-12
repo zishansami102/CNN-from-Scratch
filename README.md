@@ -61,16 +61,14 @@ See the issue section of this repositiory
 
 
 Plan is to make a Web App or Mobile App which can predict the digit between 0 to 9 if the user writes anything on the app drawing board.
-You can choose any one or more of the following which you like from the list down bellow and respond on the google group to start:
+Following are the steps in which we may proceed:
 
-* A python based API which recieves image as input and gives digit prediction for that image as output
-* Make the front-end of the Web/Mobile App which should have a drawing board on which digits can be drawn and integrate the API
-* 
+* A python based Flask API which recieves image as input and gives digit prediction for that image as output
+* Front-end of the Web/Mobile App which should have a drawing board on which the user will draw
+* Integration of the API with the front-end
 
-<!-- 
-```
-Contributions are welcome of course ;)
-``` -->
+Respond on the google group with anyone among the above to start the contribution
+
 
 ## Acknowledgments
 
