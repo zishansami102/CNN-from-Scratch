@@ -1,5 +1,4 @@
 # Convolutional Neural Network from scratch
-[KWoC Google Group](https://groups.google.com/forum/#!forum/cnn-from-scratch)
 
 Objective of this work was to write the `Convolutional Neural Network` without using any Deep Learning Library to gain insights of what is actually happening and thus the algorithm is not optimised enough and hence is slow on large dataset like CIFAR-10.
 This piece of code could be used for `learning purpose` and could be implemented with trained parameter available in the respective folders for any testing applications like `Object Detection` and `Digit recognition`.
@@ -36,7 +35,7 @@ Clone the repository
 git clone https://github.com/zishansami102/Convolutional-Neural-Network-from-Scratch
 ```
 
-
+Downlad the dataset and copy that it's corresponding folder(CIFAR-10/MNIST)
 Move into the required directory and then run the following command to start training model
 
 ```
@@ -54,6 +53,7 @@ To load pre-trained models, change the pickle filename from output.pickle to tra
 ## Contributing
 
 ### KWoC Action Plan
+[KWoC Google Group](https://groups.google.com/forum/#!forum/cnn-from-scratch)
 
 #### Short term Issues
 
@@ -62,11 +62,11 @@ See the issue section of this repositiory
 #### Long term project
 
 
-Plan is to make a Web App or Mobile App which can predict the digit between 0 to 9 if the user writes anything on the app drawing board.
+Plan is to make a Web App which can predict the digit between 0 to 9 if the user writes anything on the app drawing board.
 Following are the steps in which we may proceed:
 
 * A python based Flask API which recieves image as input and gives digit prediction for that image as output
-* Front-end of the Web/Mobile App which should have a drawing board on which the user will draw
+* Front-end of the Web App which should have a drawing board on which the user will draw
 * Integration of the API with the front-end
 
 Respond on the [google group](https://groups.google.com/forum/#!forum/cnn-from-scratch) from the list above to know details and start the contribution

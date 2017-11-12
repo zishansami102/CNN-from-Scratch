@@ -35,7 +35,7 @@ def softmax_cost(out,y, theta3, filt1, filt2):
 	
 	p = sum(y*probs)
 	cost = -np.log(p)	## (Only data loss. No regularised loss)
-	return cost,probs	
+	return cost, probs	
 
 ## Returns gradient for all the paramaters in each iteration
 def ConvNet(image, label, filt1, filt2, bias1, bias2, theta3, bias3):
