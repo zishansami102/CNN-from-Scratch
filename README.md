@@ -1,4 +1,4 @@
-# Convolutional Neural Network from scratch
+# Convolutional Neural Network from scratch [KWoC Google Group](https://groups.google.com/forum/#!forum/cnn-from-scratch)
 
 Objective of this work was to write the `Convolutional Neural Network` without using any Deep Learning Library to gain insights of what is actually happening and thus the algorithm is not optimised enough and hence is slow on large dataset like CIFAR-10.
 This piece of code could be used for `learning purpose` and could be implemented with trained parameter available in the respective folders for any testing applications like `Object Detection` and `Digit recognition`.
@@ -6,13 +6,14 @@ This piece of code could be used for `learning purpose` and could be implemented
 ![alt text](cifar.png)
 ![alt text](mnist.png)
 
-## Getting Started
+## Getting Started 
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
 
-* [Numpy](http://www.numpy.org/) - Multidimensioanl Mathematical Computing 
+* [Numpy](http://www.numpy.org/) - Multidimensioanl Mathematical Computing
+* [Flask](http://flask.pocoo.org/) - A microframework for Python
 * [Matplotlib](https://matplotlib.org/contents.html) - Used to plot Graph
 * [Pickle](https://docs.python.org/3/library/pickle.html) - Used to save trained models/object
 * [MNIST Dataset](http://yann.lecun.com/exdb/mnist/) - Dataset for Digit Recognition
@@ -67,7 +68,7 @@ Following are the steps in which we may proceed:
 * Front-end of the Web/Mobile App which should have a drawing board on which the user will draw
 * Integration of the API with the front-end
 
-Respond on the google group with anyone among the above to start the contribution
+Respond on the [google group](https://groups.google.com/forum/#!forum/cnn-from-scratch) from the list above to know details and start the contribution
 
 
 ## Acknowledgments
