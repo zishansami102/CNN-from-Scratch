@@ -29,14 +29,14 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
-Clone the repository
+* Clone the repository
 
 ```
 git clone https://github.com/zishansami102/Convolutional-Neural-Network-from-Scratch
 ```
 
-Downlad the dataset and copy that it's corresponding folder(CIFAR-10/MNIST)
-Move into the required directory and then run the following command to start training model
+* Downlad the dataset and copy that to it's corresponding folder(CIFAR-10/MNIST).
+* Move into the required directory and then run the following command to start training model
 
 ```
 python run.py
@@ -47,7 +47,7 @@ Output:
 ![alt text](training.png)
 
 
-To load pre-trained models, change the pickle filename from output.pickle to trained.pickle in run.py: `line No. - 27-28` and comment out the training part form the code in run.py: `line No. - 77-104`
+* To load pre-trained models, change the pickle filename from output.pickle to trained.pickle in run.py: `line No. - 27-28` and comment out the training part form the code in run.py: `line No. - 77-104`
 
 
 ## Contributing
