@@ -35,7 +35,7 @@ Followings are also required if working/testing on the app.py
 * Clone the repository
 
 ```
-git clone https://github.com/zishansami102/Convolutional-Neural-Network-from-Scratch
+git clone https://github.com/zishansami102/CNN-from-Scratch
 ```
 
 * Downlad the dataset and copy that to it's corresponding folder(CIFAR-10/MNIST).
