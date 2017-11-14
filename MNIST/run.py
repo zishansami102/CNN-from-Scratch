@@ -102,8 +102,7 @@ for epoch in range(0,NUM_EPOCHS):
 		printTime(remtime)
 		x+=1
 
-	
-	
+
 ## saving the trained model parameters
 with open(PICKLE_FILE, 'wb') as file:
 	pickle.dump(out, file)
@@ -135,7 +134,8 @@ corr = 0
 print("Computing accuracy over test set:")
 for i in range(0,len(test_data)):
 	image = X[i]
-	if predict(image, filt1, filt2, bias1, bias2, theta3, bias3)==y[i]:
+	digit, prob = predict(image, filt1, filt2, bias1, bias2, theta3, bias3)
+	if digit==y[i]:
 		corr+=1
 	if (i+1)%int(0.01*len(test_data))==0:
 		print(str(float(i+1)/len(test_data)*100)+"% Completed")

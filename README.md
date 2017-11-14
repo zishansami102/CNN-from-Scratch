@@ -18,7 +18,7 @@ These instructions will get you a copy of the project up and running on your loc
 * [MNIST Dataset](http://yann.lecun.com/exdb/mnist/) - Dataset for Digit Recognition
 * [CIFAR-10 Dataset](http://www.cs.toronto.edu/~kriz/cifar.html) - Dataset for Object Recognition
 
-Followings are also required if also working/testing on the app.py
+Followings are also required if working/testing on the app.py
 
 * [Flask](http://flask.pocoo.org/) - A microframework for Python
 * [Gunicorn](http://gunicorn.org/) - A Python WSGI HTTP Server for UNIX
