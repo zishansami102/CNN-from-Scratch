@@ -28,6 +28,22 @@ def maxpool(X, f, s):
 			i+=s
 	return pool
 
+## Average Pool Definition
+def averagepool(X, f, s):
+	(l, w, w) = X.shape
+	#inintializing pooled output
+	pool = np.zeros((l, (w-f)/s+1,(w-f)/s+1))
+
+	for jj in range(0,l):
+		i=0
+		while(i<w):
+			j=0
+			while(j<w):
+				pool[jj,i/2,j/2] = np.mean(X[jj,i:i+f,j:j+f])
+				j+=s
+			i+=s
+	return pool
+
 ## Softmax Loss Definition for multiclass classification
 def softmax_cost(out,y, theta3, filt1, filt2):
 	eout = np.exp(out, dtype=np.float128)
