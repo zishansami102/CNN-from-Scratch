@@ -65,7 +65,7 @@ See the issue section of this repositiory
 #### Long term project
 
 
-Plan is to make a Web App which can predict the digit between 0 to 9 if the user writes anything on the app drawing board.
+Plan is to make a Web App which can predict the digit between 0 to 9 if the user writes anything on the app drawing board(using the functions written in convnet.py).
 Following are the steps in which we may proceed:
 
 * A python based Flask API which recieves image as input and gives digit prediction for that image as output
