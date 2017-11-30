@@ -16,17 +16,17 @@ These instructions will get you a copy of the project up and running on your loc
 * [Pickle](https://docs.python.org/3/library/pickle.html) - Used to save trained models/object
 * [MNIST Dataset](http://yann.lecun.com/exdb/mnist/) - Dataset for Digit Recognition
 
-s
+
 ### Installing
 
-Clone the repository
+* Clone the repository
 
 ```
-git clone https://github.com/zishansami102/Convolutional-Neural-Network-from-Scratch
+git clone https://github.com/zishansami102/CNN-from-Scratch
 ```
 
-
-Move into the required directory and then run the following command to start training model
+* Downlad the MNIST dataset and copy that to MNIST folder.
+* Move into the MNIST directory and then run the following command to start training model
 
 ```
 python run.py
