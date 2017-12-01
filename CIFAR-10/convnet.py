@@ -142,7 +142,23 @@ def initialize_param(f, l):
 
 def initialize_theta(NUM_OUTPUT, l_in):
 	return 0.01*np.random.rand(NUM_OUTPUT, l_in)
+def initialise_param_lecun_normal(FILTER_SIZE, IMG_DEPTH, scale=1.0, distribution='normal'):
 
+    if scale <= 0.:
+            raise ValueError('`scale` must be a positive float. Got:', scale)
+
+    distribution = distribution.lower()
+    if distribution not in {'normal'}:
+        raise ValueError('Invalid `distribution` argument: '
+                             'expected one of {"normal", "uniform"} '
+                             'but got', distribution)
+
+    scale = scale
+    distribution = distribution
+    scale /= max(1., fan_in)##fan_in is to be done
+    stddev = np.sqrt(scale)
+    shape = (IMG_DEPTH,FILTER_SIZE,FILTER_SIZE)
+    return np.random.standard_normal(shape, 0., stddev)
 ## Returns all the trained parameters
 def momentumGradDescent(batch, LEARNING_RATE, w, l, MU, filt1, filt2, bias1, bias2, theta3, bias3, cost, acc):
 	#	Momentum Gradient Update
