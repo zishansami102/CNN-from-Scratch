@@ -12,12 +12,9 @@ def nanargmax(a):
 		multi_idx = np.unravel_index(idx, a.shape)
 	return multi_idx
 
-## MaxPool Definition
 def maxpool(X, f, s):
 	(l, w, w) = X.shape
-	#inintializing pooled output
 	pool = np.zeros((l, (w-f)/s+1,(w-f)/s+1))
-
 	for jj in range(0,l):
 		i=0
 		while(i<w):
@@ -28,30 +25,13 @@ def maxpool(X, f, s):
 			i+=s
 	return pool
 
-## Average Pool Definition
-def averagepool(X, f, s):
-	(l, w, w) = X.shape
-	#inintializing pooled output
-	pool = np.zeros((l, (w-f)/s+1,(w-f)/s+1))
-
-	for jj in range(0,l):
-		i=0
-		while(i<w):
-			j=0
-			while(j<w):
-				pool[jj,i/2,j/2] = np.mean(X[jj,i:i+f,j:j+f])
-				j+=s
-			i+=s
-	return pool
-
-## Softmax Loss Definition for multiclass classification
 def softmax_cost(out,y, theta3, filt1, filt2):
 	eout = np.exp(out, dtype=np.float128)
 	probs = eout/sum(eout)
 	
 	p = sum(y*probs)
 	cost = -np.log(p)	## (Only data loss. No regularised loss)
-	return cost, probs	
+	return cost,probs	
 
 ## Returns gradient for all the paramaters in each iteration
 def ConvNet(image, label, filt1, filt2, bias1, bias2, theta3, bias3):
@@ -59,7 +39,9 @@ def ConvNet(image, label, filt1, filt2, bias1, bias2, theta3, bias3):
 	#######################################  Feed forward to get all the layers  ########################################
 	#####################################################################################################################
 
-	## Inintializing all the conv and their shapes layers
+	## Calculating first Convolution layer
+		
+
 	(l,w,w)=image.shape
 	(l1,f,f) = filt2[0].shape
 	l2 = len(filt2)
@@ -69,7 +51,6 @@ def ConvNet(image, label, filt1, filt2, bias1, bias2, theta3, bias3):
 	conv1 = np.zeros((l1,w1,w1))
 	conv2 = np.zeros((l2,w2,w2))
 
-	## Calculating first Convolution layer
 	for jj in range(0,l1):
 		for x in range(0,w1):
 			for y in range(0,w1):
@@ -86,9 +67,8 @@ def ConvNet(image, label, filt1, filt2, bias1, bias2, theta3, bias3):
 	## Pooled layer with 2*2 size and stride 2,2
 	pooled_layer = maxpool(conv2, 2, 2)	
 
-	## Fully coonected hidden layer
 	fc1 = pooled_layer.reshape(((w2/2)*(w2/2)*l2,1))
-	## Output layer
+	
 	out = theta3.dot(fc1) + bias3	#10*1
 	
 	######################################################################################################################
@@ -153,14 +133,15 @@ def ConvNet(image, label, filt1, filt2, bias1, bias2, theta3, bias3):
 
 		dbias1[jj] = np.sum(dconv1[jj])
 
+	
 	return [dfilt1, dfilt2, dbias1, dbias2, dtheta3, dbias3, cost, acc]
 
-## Xavier Inintialzer
+
 def initialize_param(f, l):
-	return np.random.rand(l, f, f)/np.sqrt(2/(l*f*f))
-## Xavier Inintialzer
+	return 0.01*np.random.rand(l, f, f)
+
 def initialize_theta(NUM_OUTPUT, l_in):
-	return np.random.rand(NUM_OUTPUT, l_in)/np.sqrt(2/(NUM_OUTPUT+l_in))
+	return 0.01*np.random.rand(NUM_OUTPUT, l_in)
 
 ## Returns all the trained parameters
 def momentumGradDescent(batch, LEARNING_RATE, w, l, MU, filt1, filt2, bias1, bias2, theta3, bias3, cost, acc):
@@ -196,7 +177,8 @@ def momentumGradDescent(batch, LEARNING_RATE, w, l, MU, filt1, filt2, bias1, bia
 	v3 = np.zeros(theta3.shape)
 	bv3 = np.zeros(bias3.shape)
 
-	## running gradient Descent
+
+
 	for i in range(0,batch_size):
 		
 		image = X[i]
@@ -217,8 +199,7 @@ def momentumGradDescent(batch, LEARNING_RATE, w, l, MU, filt1, filt2, bias1, bia
 
 		cost_+=curr_cost
 		n_correct+=acc_
-		
-	## Updating parameters
+
 	for j in range(0,len(filt1)):
 		v1[j] = MU*v1[j] -LEARNING_RATE*dfilt1[j]/batch_size
 		filt1[j] += v1[j]
@@ -245,7 +226,7 @@ def momentumGradDescent(batch, LEARNING_RATE, w, l, MU, filt1, filt2, bias1, bia
 	return [filt1, filt2, bias1, bias2, theta3, bias3, cost, acc]
 
 ## Predict class of each row of matrix X
-def predict(image, filt1, filt2, bias1, bias2, theta3, bias3):
+def predict(image, label, filt1, filt2, bias1, bias2, theta3, bias3):
 	(l,w,w)=image.shape
 	(l1,f,f) = filt2[0].shape
 	l2 = len(filt2)
