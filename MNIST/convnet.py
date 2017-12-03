@@ -157,7 +157,7 @@ def initialise_param_lecun_normal(FILTER_SIZE, IMG_DEPTH, scale=1.0, distributio
     scale = scale
     distribution = distribution
     fan_in = FILTER_SIZE*FILTER_SIZE*IMG_DEPTH
-    scale /= max(1., fan_in)
+    scale = scale
     stddev = scale * np.sqrt(1./fan_in)
     shape = (IMG_DEPTH,FILTER_SIZE,FILTER_SIZE)
     return np.random.normal(loc = 0,scale = stddev,size = shape)
