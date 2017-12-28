@@ -2,6 +2,7 @@
 
 Objective of this work was to write the `Convolutional Neural Network` without using any Deep Learning Library to gain insights of what is actually happening and thus the algorithm is not optimised enough and hence is slow on large dataset like CIFAR-10.
 This piece of code could be used for `learning purpose` and could be implemented with trained parameter available in the respective folders for any testing applications like `Object Detection` and `Digit recognition`.
+`It's Accuracy on MNIST test set is above 97%.`
 
 ![alt text](cifar.png)
 ![alt text](mnist.png)
@@ -50,7 +51,7 @@ Output:
 ![alt text](training.png)
 
 
-* To load pre-trained models, change the pickle filename from output.pickle to trained.pickle in run.py: `line No. - 27-28` and comment out the training part form the code in run.py: `line No. - 77-104`
+* To load pre-trained models, change the pickle filename from output.pickle to trained.pickle in run.py: `line No. - 27-28` and comment out the training part form the code in run.py: `line No. - 80-104`
 
 
 ## Contributing
@@ -79,4 +80,4 @@ Respond on the [google group](https://groups.google.com/forum/#!forum/cnn-from-s
 
 * [CS231n.stanford.edu](http://cs231n.stanford.edu/) - Most of the theorotical concepts are taken from here
 * [dorajam](https://github.com/dorajam/Convolutional-Network) - Used to gain more concepts
-* [Advanced Concepts](http://www.jefkine.com/general/2016/09/05/backpropagation-in-convolutional-neural-networks/) - Still need to be implemented, but helpful to gain insight
+* [Mathematical Concepts](http://www.jefkine.com/general/2016/09/05/backpropagation-in-convolutional-neural-networks/) - Still need to be implemented, but helpful to gain insight
