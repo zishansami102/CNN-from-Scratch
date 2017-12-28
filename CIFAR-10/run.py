@@ -51,11 +51,11 @@ filt2 = {}
 bias1 = {}
 bias2 = {}
 for i in range(0,NUM_FILT1):
-	filt1[i] = initialize_param(FILTER_SIZE,IMG_DEPTH)
+	filt1[i] = initialise_param_lecun_normal(FILTER_SIZE,IMG_DEPTH)
 	bias1[i] = 0
 	# v1[i] = 0
 for i in range(0,NUM_FILT2):
-	filt2[i] = initialize_param(FILTER_SIZE,NUM_FILT1)
+	filt2[i] = initialise_param_lecun_normal(FILTER_SIZE,NUM_FILT1)
 	bias2[i] = 0
 	# v2[i] = 0
 w1 = IMG_WIDTH-FILTER_SIZE+1
@@ -63,7 +63,7 @@ w2 = w1-FILTER_SIZE+1
 theta3 = initialize_theta(NUM_OUTPUT, (w2/2)*(w2/2)*NUM_FILT2)
 
 bias3 = np.zeros((NUM_OUTPUT,1))
-cost = []5
+cost = []
 acc = []
 # pickle_in = open(PICKLE_FILE, 'rb')
 # out = pickle.load(pickle_in)

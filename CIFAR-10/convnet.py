@@ -25,13 +25,14 @@ def maxpool(X, f, s):
 			i+=s
 	return pool
 
-def softmax_cost(out,y, theta3, filt1, filt2):
+def softmax_cost(out,y):
 	eout = np.exp(out, dtype=np.float128)
 	probs = eout/sum(eout)
 	
 	p = sum(y*probs)
 	cost = -np.log(p)	## (Only data loss. No regularised loss)
 	return cost,probs	
+
 
 ## Returns gradient for all the paramaters in each iteration
 def ConvNet(image, label, filt1, filt2, bias1, bias2, theta3, bias3):
@@ -41,10 +42,16 @@ def ConvNet(image, label, filt1, filt2, bias1, bias2, theta3, bias3):
 
 	## Calculating first Convolution layer
 		
-
-	(l,w,w)=image.shape
-	(l1,f,f) = filt2[0].shape
+	## l - channel
+	## w - size of square image
+	## l1 - No. of filters in Conv1
+	## l2 - No. of filters in Conv2
+	## w1 - size of image after conv1
+	## w2 - size of image after conv2
+	(l, w, w) = image.shape		
+	l1 = len(filt1)
 	l2 = len(filt2)
+	( _, f, f) = filt1[0].shape
 	w1 = w-f+1
 	w2 = w1-f+1
 	
@@ -74,7 +81,7 @@ def ConvNet(image, label, filt1, filt2, bias1, bias2, theta3, bias3):
 	######################################################################################################################
 	########################################  Using softmax function to get cost  ########################################
 	######################################################################################################################
-	cost, probs = softmax_cost(out, label, theta3, filt1, filt2)
+	cost, probs = softmax_cost(out, label)
 	if np.argmax(out)==np.argmax(label):
 		acc=1
 	else:
@@ -106,7 +113,7 @@ def ConvNet(image, label, filt1, filt2, bias1, bias2, theta3, bias3):
 	
 	dconv2[conv2<=0]=0
 
-	dconv1 = np.zeros((l2, w1, w1))
+	dconv1 = np.zeros((l1, w1, w1))
 	dfilt2 = {}
 	dbias2 = {}
 	for xx in range(0,l2):
@@ -116,7 +123,7 @@ def ConvNet(image, label, filt1, filt2, bias1, bias2, theta3, bias3):
 	dfilt1 = {}
 	dbias1 = {}
 	for xx in range(0,l1):
-		dfilt1[xx] = np.zeros((image.shape[0],f,f))
+		dfilt1[xx] = np.zeros((l,f,f))
 		dbias1[xx] = 0
 
 	for jj in range(0,l2):
@@ -142,6 +149,25 @@ def initialize_param(f, l):
 
 def initialize_theta(NUM_OUTPUT, l_in):
 	return 0.01*np.random.rand(NUM_OUTPUT, l_in)
+
+def initialise_param_lecun_normal(FILTER_SIZE, IMG_DEPTH, scale=1.0, distribution='normal'):
+	
+    if scale <= 0.:
+            raise ValueError('`scale` must be a positive float. Got:', scale)
+
+    distribution = distribution.lower()
+    if distribution not in {'normal'}:
+        raise ValueError('Invalid `distribution` argument: '
+                             'expected one of {"normal", "uniform"} '
+                             'but got', distribution)
+
+    scale = scale
+    distribution = distribution
+    fan_in = FILTER_SIZE*FILTER_SIZE*IMG_DEPTH
+    scale = scale
+    stddev = scale * np.sqrt(1./fan_in)
+    shape = (IMG_DEPTH,FILTER_SIZE,FILTER_SIZE)
+    return np.random.normal(loc = 0,scale = stddev,size = shape)
 
 ## Returns all the trained parameters
 def momentumGradDescent(batch, LEARNING_RATE, w, l, MU, filt1, filt2, bias1, bias2, theta3, bias3, cost, acc):
