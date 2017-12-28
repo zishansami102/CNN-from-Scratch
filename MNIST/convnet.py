@@ -252,7 +252,7 @@ def momentumGradDescent(batch, LEARNING_RATE, w, l, MU, filt1, filt2, bias1, bia
 	return [filt1, filt2, bias1, bias2, theta3, bias3, cost, acc]
 
 ## Predict class of each row of matrix X
-def predict(image, label, filt1, filt2, bias1, bias2, theta3, bias3):
+def predict(image, filt1, filt2, bias1, bias2, theta3, bias3):
 	(l,w,w)=image.shape
 	(l1,f,f) = filt2[0].shape
 	l2 = len(filt2)
