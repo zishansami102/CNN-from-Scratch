@@ -8,7 +8,7 @@ This piece of code could be used for `learning purpose` and could be implemented
 ![alt text](cifar.png)
 ![alt text](mnist.png)
 
-## Getting Started
+## Architecture
 
 INPUT - CONV1 - RELU - CONV2 - RELU- MAXPOOL - FC1 - OUT
 ![alt text](archi.jpg)
