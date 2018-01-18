@@ -62,7 +62,7 @@ for i in range(0,NUM_FILT1):
 	bias1[i] = 0
 	# v1[i] = 0
 for i in range(0,NUM_FILT2):
-	filt2[i] = initialise_param_lecun_normal(FILTER_SIZE, NUM_FILT2, scale=1.0, distribution='normal')
+	filt2[i] = initialise_param_lecun_normal(FILTER_SIZE, NUM_FILT1, scale=1.0, distribution='normal')
 	bias2[i] = 0
 	# v2[i] = 0
 w1 = IMG_WIDTH-FILTER_SIZE+1
