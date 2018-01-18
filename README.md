@@ -11,7 +11,7 @@ This piece of code could be used for `learning purpose` and could be implemented
 ## Getting Started
 
 INPUT - CONV1 - RELU - CONV2 - RELU- MAXPOOL - FC1 - OUT
-![alt text](archi.png)
+![alt text](archi.jpg)
 
 
 ## Getting Started 
