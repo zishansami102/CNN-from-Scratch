@@ -11,7 +11,10 @@ This piece of code could be used for `learning purpose` and could be implemented
 ## Architecture
 
 INPUT - CONV1 - RELU - CONV2 - RELU- MAXPOOL - FC1 - OUT
-![alt text](archi.jpg)
+
+![alt text](archi_mnist.jpg)
+
+![alt text](archi_cifar.jpg)
 
 
 ## Getting Started 
