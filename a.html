@@ -1,0 +1,20 @@
+<!DOCTYPE HTML5>
+<html>
+  <head>
+    <title>CNN-from-Scratch</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="drawingboard.min.css">
+  </head>
+  <body>
+    <div class="example" data-example="1">
+				<h1>The default DrawingBoard</h1>
+				<div class="board" id="default-board"></div>
+		</div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="drawingBoard.min.js"></script>
+    <script data-example="1">
+        //create the drawingboard by passing it the #id of the wanted container
+        var defaultBoard = new DrawingBoard.Board('default-board');
+    </script>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+{% block body %}
+<section id="splash-blue" class="z-depth-1">
+    <div id="particles-js">
+        <canvas class="particles-js-canvas-el"></canvas>
+    </div>
+    <div class="container">
+        <div class="row hide-on-small-only hero-home">
+            <div class="col m10 offset-m1 s12 l10 offset-l1">
+                <h1 class="white-text main-title">Handwritten Digits Recognizer</h1>
+                <h5 class="white-text sub-title">Machine learning app based on Convolutional Neural Networks</h5>
+                <div class="row">
+                    <div class="col offset-m4 m4">
+                        <a href="https://editor.stamplay.com/register" class="btn btn-large full-width waves-effect waves-light yellow darken-2 segment-track-start"><span class="dark-grey-text">Start your free trial</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="hide-on-small-only">
+    <div class="container">
+        <h4 class="center-align with-subtitle">Draw your digits here</h4>
+        <h5 class="subtitle center-align">The digit drawn by you will be analysed by our algorithm.</h5>
+        <div class="row center-align">
+            <div class="row">
+                <div class="col s10 offset-s1 m10 offset-m1">
+                    <div class="container">
+                        <div class="board" id="default-board"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> 
+<script src="{{ url_for('static', filename='style/drawingBoard.min.js') }}"></script>
+<script>
+    //create the drawingboard by passing it the #id of the wanted container
+    var defaultBoard = new DrawingBoard.Board('default-board');
+
+</script>
+{% endblock %}
+
