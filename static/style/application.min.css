@@ -5423,7 +5423,8 @@ input[type=range]:focus::-ms-fill-upper {
  margin:0 auto
 }
 section,section div#particles-js canvas.particles-js-canvas-el {
- height:100%;
+ position:relative;
+ height:auto;
  width:100%
 }
 .picker__nav--next:before {
@@ -5697,7 +5698,7 @@ section .row.three-paragraphs p {
 }
 section.page-header-blue {
  padding:40px 0 20px;
- background:url(../images/exagon-pattern.png) #272D4E
+ background:url(../images/exagon-pattern.png) #01579b
 }
 section.page-header-blue h2 {
  font-size:36px
@@ -5711,7 +5712,7 @@ section.page-header-blue h2 .heading-divider {
 }
 .interlude,.small-interlude {
  z-index:-1;
- background-color:#272D4E;
+ background-color:#01579b;
  width:100%;
  color:#fff;
  overflow:hidden
@@ -5826,7 +5827,7 @@ footer h4 {
  padding:15px 0
 }
 footer #footer-nav {
- background-color:#414B82;
+ background-color:#01579b;
  min-height:200px;
  padding-top:30px;
  padding-bottom:30px
@@ -5926,7 +5927,7 @@ footer ul li {
  background:#2D345B
 }
 .bg-blue-darken-4 {
- background:#272D4E
+ background:#01579b
 }
 .bg-grey-base {
  background:#5a5a5a
@@ -5944,8 +5945,8 @@ footer ul li {
  background:#121212
 }
 #splash-blue {
- background-color:#272D4E;
- background-image:radial-gradient(circle farthest-side at right bottom,#414b82 34%,#272d4e 100%)
+ background-color:#01579b;
+ background-image:radial-gradient(circle farthest-side at right bottom,#00447a 34%,#01579b 100%)
 }
 #splash-blue .hero-home {
  min-height:400px;
@@ -6011,7 +6012,7 @@ footer ul li {
  }
 }
 #exagon-interlude {
- background-color:#272D4E;
+ background-color:#01579b;
  background-image:url(../images/exagon-pattern.png);
  padding:40px 0;
  color:#fff

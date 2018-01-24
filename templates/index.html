@@ -11,7 +11,7 @@
                 <h5 class="white-text sub-title">Machine learning app based on Convolutional Neural Networks</h5>
                 <div class="row">
                     <div class="col offset-m4 m4">
-                        <a href="https://editor.stamplay.com/register" class="btn btn-large full-width waves-effect waves-light yellow darken-2 segment-track-start"><span class="dark-grey-text">Start your free trial</span></a>
+                        <a href="#" class="btn btn-large full-width waves-effect waves-light yellow darken-2 segment-track-start"><span class="dark-grey-text">Try it Below</span></a>
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
             <div class="row">
                 <div class="col s10 offset-s1 m10 offset-m1">
                     <div class="container">
-                        <div class="board" id="default-board"></div>
+                        <div class="board" id="default-board" height="520"></div>
                     </div>
                 </div>
             </div>
@@ -37,8 +37,17 @@
 <script src="{{ url_for('static', filename='style/drawingBoard.min.js') }}"></script>
 <script>
     //create the drawingboard by passing it the #id of the wanted container
-    var defaultBoard = new DrawingBoard.Board('default-board');
-
+   var customBoard2 = new DrawingBoard.Board('default-board', {
+	controls: [
+		{ Size: { type: 'dropdown' } },
+		{ DrawingMode: { filler: false } },
+		'Navigation',
+        'Download'
+	],
+	size: 1,
+	webStorage: 'session',
+	enlargeYourContainer: true
+});
 </script>
 {% endblock %}
 
