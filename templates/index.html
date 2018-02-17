@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 {% block body %}
-<section id="splash-blue" class="z-depth-1">
+<!--<section id="splash-blue" class="z-depth-1">
     <div id="particles-js">
         <canvas class="particles-js-canvas-el"></canvas>
     </div>
@@ -17,16 +17,18 @@
             </div>
         </div>
     </div>
-</section>
+</section>-->
 <section class="hide-on-small-only">
     <div class="container">
-        <h4 class="center-align with-subtitle">Draw your digits here</h4>
+        <a href="/"><img class="logo" src="{{ url_for('static', filename='circular_logo.png') }}" href="/" ></a>
+        <h4 id="text" class="center-align with-subtitle" >Draw your digits here</h4>
         <h5 class="subtitle center-align">The digit drawn by you will be analysed by our algorithm.</h5>
         <div class="row center-align">
             <div class="row">
                 <div class="col s10 offset-s1 m10 offset-m1">
                     <div class="container">
                         <div class="board" id="default-board" height="520"></div>
+                        <button id="button" class="waves-effect waves-light btn" onclick=digit_process()>Submit</button>
                     </div>
                 </div>
             </div>
@@ -35,19 +37,54 @@
 </section>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> 
 <script src="{{ url_for('static', filename='style/drawingBoard.min.js') }}"></script>
+<script src="{{ url_for('static', filename='style/hermiteResize.js') }}"></script>
 <script>
     //create the drawingboard by passing it the #id of the wanted container
-   var customBoard2 = new DrawingBoard.Board('default-board', {
+   var board = new DrawingBoard.Board('default-board', {
 	controls: [
-		{ Size: { type: 'dropdown' } },
-		{ DrawingMode: { filler: false } },
-		'Navigation',
+		// { Size: { type: 'dropdown' } },
+		{ DrawingMode: {pencil:false, eraser:false, filler: false } },
+        { Navigation: {back: false, forward:false} },
         'Download'
 	],
 	size: 1,
-	webStorage: 'session',
+	webStorage: false,
 	enlargeYourContainer: true
-});
+    });
+    // setInterval( function(){
+        // var img = board.ctx.getImageData(0 ,0, board.ctx.canvas.width, board.ctx.canvas.height).data;
+        // image = board.getImg();
+        // var ctx = resizedCanvas.getContext("2d");
+        // ctx.width = image.width*0.14;
+        // ctx.height = image.height*0.14;
+        // image.style.width = "15%";
+        // image.style.height = "auto";
+        
+        // document.getElementById('text').innerHTML = img.length;
+    // }, 1000 );
+    function digit_process(){
+        var resizedCanvas = document.createElement('canvas');
+        resample_single(board.canvas, 28, 28, true, resizedCanvas);
+        var ctx = resizedCanvas.getContext("2d");
+        var img= ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height).data;
+        $(function () {
+                $('button').click(function () {
+                    console.log("Function is successfully called")
+                    $.ajax({
+                        url: '/digit_process',
+                        data: JSON.stringify(img),
+                        contentType: "application/json; charset=utf-8",
+                        type: 'POST',
+                        success: function (response) {
+                            console.log(response);
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+                });
+            });
+    }
 </script>
 {% endblock %}
 

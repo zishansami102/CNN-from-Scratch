@@ -27,8 +27,14 @@
  height:auto;
  cursor:crosshair;
  min-height:200px;
+ min-width:200px;
  z-index:20;
 }
+#default-board{
+    width:200px;
+    height:200px;
+}
+
 .drawing-board-cursor {
  position:absolute;
  top:0;

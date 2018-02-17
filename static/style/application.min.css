@@ -2348,6 +2348,14 @@ nav ul a:hover,nav ul li.active {
  max-width:1280px;
  width:90%
 }
+.logo {
+    height:auto;
+    width:auto;
+    position:relative;
+    display: block;
+    margin: 0 auto;
+
+}
 @media only screen and (min-width:601px) {
  .container {
   width:85%
@@ -5550,8 +5558,11 @@ nav ul li.link:hover {
  color:rgba(0,0,0,.87);
  line-height:1rem
 }
-.dark-grey-text,html,section h4 {
+.dark-grey-text,html {
  color:#121212
+}
+section h4{
+    color:#006cc1;
 }
 .dropdown-content li .dropdown-content li.active,.dropdown-content li :hover {
  background-color:rgba(0,0,0,.06)
