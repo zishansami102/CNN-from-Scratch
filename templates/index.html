@@ -47,7 +47,7 @@
         { Navigation: {back: false, forward:false} },
         'Download'
 	],
-	size: 1,
+	size: 10,
 	webStorage: false,
 	enlargeYourContainer: true
     });
@@ -66,13 +66,22 @@
         var resizedCanvas = document.createElement('canvas');
         resample_single(board.canvas, 28, 28, true, resizedCanvas);
         var ctx = resizedCanvas.getContext("2d");
-        var img= ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height).data;
+        var imgData= ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
+        var data = imgData.data;
+        for (var i = 0; i < data.length; i += 4) {
+                var avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+                data[i] = avg; // red
+                data[i + 1] = avg; // green
+                data[i + 2] = avg; // blue
+        }
+        ctx.putImageData(imgData, 0, 0);
+        // var img = ctx.canvas.toDataURL("image/png");
         $(function () {
                 $('button').click(function () {
                     console.log("Function is successfully called")
                     $.ajax({
                         url: '/digit_process',
-                        data: JSON.stringify(img),
+                        data: JSON.stringify(imgData),
                         contentType: "application/json; charset=utf-8",
                         type: 'POST',
                         success: function (response) {
@@ -84,7 +93,7 @@
                     });
                 });
             });
-    }
+        } 
 </script>
 {% endblock %}
 
