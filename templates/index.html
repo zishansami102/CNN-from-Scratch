@@ -75,13 +75,13 @@
                 data[i + 2] = avg; // blue
         }
         ctx.putImageData(imgData, 0, 0);
-        // var img = ctx.canvas.toDataURL("image/png");
+        var img = ctx.canvas.toDataURL("image/png");
         $(function () {
-                $('button').click(function () {
+                // $('button').click(function () {
                     console.log("Function is successfully called")
                     $.ajax({
                         url: '/digit_process',
-                        data: JSON.stringify(imgData),
+                        data: JSON.stringify(img),
                         contentType: "application/json; charset=utf-8",
                         type: 'POST',
                         success: function (response) {
@@ -91,7 +91,7 @@
                             console.log(error);
                         }
                     });
-                });
+                // });
             });
         } 
 </script>
