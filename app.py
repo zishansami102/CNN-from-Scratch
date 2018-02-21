@@ -10,7 +10,8 @@ def index():
 def digit_process():
 	if(request.method == "POST"):
 		img = request.get_json()
-		print img
+		img = np.array(img).reshape(1,28,28)
+		print img.shape
 		return "Take that"
 
 if __name__ == "__main__":
