@@ -1,0 +1,93 @@
+{% extends 'layout.html' %}
+{% block body %}
+<!--<section id="splash-blue" class="z-depth-1">
+    <div id="particles-js">
+        <canvas class="particles-js-canvas-el"></canvas>
+    </div>
+    <div class="container">
+        <div class="row hide-on-small-only hero-home">
+            <div class="col m10 offset-m1 s12 l10 offset-l1">
+                <h1 class="white-text main-title">Handwritten Digits Recognizer</h1>
+                <h5 class="white-text sub-title">Machine learning app based on Convolutional Neural Networks</h5>
+                <div class="row">
+                    <div class="col offset-m4 m4">
+                        <a href="#" class="btn btn-large full-width waves-effect waves-light yellow darken-2 segment-track-start"><span class="dark-grey-text">Try it Below</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>-->
+<section class="hide-on-small-only">
+    <div class="container">
+        <a href="/"><img class="logo" src="{{ url_for('static', filename='circular_logo.png') }}" href="/" ></a>
+        <h4 id="text" class="center-align with-subtitle" >Draw your digits here</h4>
+        <h5 class="subtitle center-align">The digit drawn by you will be analysed by our algorithm.</h5>
+        <div class="row center-align">
+            <div class="row">
+                <div class="col s10 offset-s1 m10 offset-m1">
+                    <div class="container">
+                        <div class="board" id="default-board" height="520"></div>
+                        <div class="result"></div>
+                        <button id="button" class="waves-effect waves-light btn" onclick=digit_process()>Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<script src="{{ url_for('static', filename='style/drawingBoard.min.js') }}"></script>
+<script src="{{ url_for('static', filename='style/hermiteResize.js') }}"></script>
+<script>
+    //create the drawingboard by passing it the #id of the wanted container
+   var board = new DrawingBoard.Board('default-board', {
+	controls: [
+		// { Size: { type: 'dropdown' } },
+		{ DrawingMode: {pencil:false, eraser:false, filler: false } },
+        { Navigation: {back: false, forward:false} },
+        'Download'
+	],
+	size: 10,
+	webStorage: false,
+	enlargeYourContainer: true
+    });
+    function digit_process(){
+        var resizedCanvas = document.createElement('canvas');
+        resample_single(board.canvas, 28, 28, true, resizedCanvas);
+        var ctx = resizedCanvas.getContext("2d");
+        var imgData= ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
+        var data = imgData.data;
+        var grayscale_list =  []
+        for (var i = 0; i < data.length; i += 4) {
+                var avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+                data[i] = avg; // red
+                data[i + 1] = avg; // green
+                data[i + 2] = avg; // blue
+                grayscale_list.push(avg);
+        }
+        ctx.putImageData(imgData, 0, 0);
+        var img = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height).data;
+
+        $(function () {
+                // $('button').click(function () {
+                    console.log("Function is successfully called")
+                    $.ajax({
+                        url: '/digit_process',
+                        data: JSON.stringify(grayscale_list),
+                        contentType: "application/json; charset=utf-8",
+                        type: 'POST',
+                        success: function (response) {
+                            console.log(response);
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+                // });
+            });
+        } 
+</script>
+{% endblock %}
+

@@ -1,0 +1,91 @@
+<!DOCTYPE HTML5>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>CNN-from-Scratch</title>
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">    
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+        <link rel="stylesheet" type="text/css" media="all" href="{{ url_for('static', filename='style/application.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/drawingboard.min.css') }}">
+    </head>
+    <body>
+        <!--<div class="navbar-fixed">
+            <nav>
+                <div class="nav-wrapper white">
+                    <div class="col s12">
+                        <a href="/" class="brand-logo"><img class="logo-img" src="{{ url_for('static', filename='circular_logo.png') }}"></a>
+                        <ul id="nav-mobile" class="right hide-on-med-and-down ">
+                            <li><a href="#">First</a></li>
+                            <li><a href="#">Second</a></li>
+                            <li><a href="#">About</a></li>      
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>-->
+        {% block body %} {% endblock %}
+        <!--<footer>
+            <div id="footer-nav">
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col s12 m2 offset-m2">
+                            <p>PRODUCT</p>
+                            <ul>
+                                <li><a href="#">Overview</a></li>
+                                <li><a href="#">Security</a></li>
+                                <li><a href="#">Pricing</a></li>
+                            </ul>
+                        </div>
+                        <div class="col s12 m2">
+                            <p>KEY CONCEPTS</p>
+                            <ul>
+                                <li><a href="#" target="_blank">Smart Automation</a></li>
+                                <li><a href="#" target="_blank">Artificial Intelligence</a></li>
+                                <li><a href="#" target="_blank">Speed and Agility</a></li>
+                                <li><a href="$" target="_blank">Integration</a></li>
+                                <li><a href="#" target="_blank">Collaborative</a></li>
+                            </ul>
+                        </div>
+                        <div class="col s12 m2 hide-on-small-only">
+                            <p>SUPPORT</p>
+                            <ul>
+                                <li><a href="#" target="_blank">Learn center</a></li>
+                                <li><a href="#" target="_blank">API Reference</a></li>
+                                <li><a href="#" target="_blank">Tutorials</a></li>
+                                <li><a href="#" target="_blank">Community</a></li>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col s12 m2 hide-on-small-only">
+                            <p>COMPANY</p>
+                            <ul>
+                                <li><a href="#">Partner program</a></li>
+                                <li><a href="#">Privacy</a></li>
+                                <li><a href="#">Terms</a></li>
+                                <li><a class="modal-trigger" href="#" target="_blank">Contact Us</a>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col s4 m3">
+                            <small> © @aashish-ak 2018</small>
+                        </div>
+                        <div class="col s4 offset-s4 m2 offset-m7 right-align">
+                            <a href="#" target="_blank" style="margin-right:5px;"><i class="fa fa-linkedin fa-lg"></i></a>
+                            <a href="#" target="_blank" style="margin-right:5px;"><i class="fa fa-medium fa-lg"></i></a>
+                            <a href="#" target="_blank" style="margin-right:5px;"><i class="fa fa-twitter fa-lg"></i></a>
+                            <a href="https://github.com/aashish-ak" target="_blank"><i class="fa fa-github fa-lg"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </footer>-->
+        <!--<script type="text/javascript" src="{{ url_for('static', filename='style/app.min.js') }}"></script>-->
+        
+    </body>
+</html>
