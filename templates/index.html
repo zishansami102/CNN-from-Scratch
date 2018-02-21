@@ -29,6 +29,9 @@
                     <div class="container">
                         <div class="board" id="default-board" height="520"></div>
                         <button id="button" class="waves-effect waves-light btn" onclick=digit_process()>Submit</button>
+                        <div class="result">
+                            
+                        </div>
                     </div>
                 </div>
             </div>
@@ -36,6 +39,7 @@
     </div>
 </section>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 <script src="{{ url_for('static', filename='style/drawingBoard.min.js') }}"></script>
 <script src="{{ url_for('static', filename='style/hermiteResize.js') }}"></script>
 <script>
@@ -51,37 +55,29 @@
 	webStorage: false,
 	enlargeYourContainer: true
     });
-    // setInterval( function(){
-        // var img = board.ctx.getImageData(0 ,0, board.ctx.canvas.width, board.ctx.canvas.height).data;
-        // image = board.getImg();
-        // var ctx = resizedCanvas.getContext("2d");
-        // ctx.width = image.width*0.14;
-        // ctx.height = image.height*0.14;
-        // image.style.width = "15%";
-        // image.style.height = "auto";
-        
-        // document.getElementById('text').innerHTML = img.length;
-    // }, 1000 );
     function digit_process(){
         var resizedCanvas = document.createElement('canvas');
         resample_single(board.canvas, 28, 28, true, resizedCanvas);
         var ctx = resizedCanvas.getContext("2d");
         var imgData= ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
         var data = imgData.data;
+        var grayscale_list =  []
         for (var i = 0; i < data.length; i += 4) {
                 var avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
                 data[i] = avg; // red
                 data[i + 1] = avg; // green
                 data[i + 2] = avg; // blue
+                grayscale_list.push(avg);
         }
         ctx.putImageData(imgData, 0, 0);
-        var img = ctx.canvas.toDataURL("image/png");
+        var img = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height).data;
+
         $(function () {
                 // $('button').click(function () {
                     console.log("Function is successfully called")
                     $.ajax({
                         url: '/digit_process',
-                        data: JSON.stringify(img),
+                        data: JSON.stringify(grayscale_list),
                         contentType: "application/json; charset=utf-8",
                         type: 'POST',
                         success: function (response) {

@@ -33,6 +33,8 @@
 #default-board{
     width:200px;
     height:200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .drawing-board-cursor {
@@ -83,6 +85,8 @@
  margin:0 auto;
  text-align:center;
  font-size:0;
+ margin-left:auto;
+ margin-right: auto;
  display:table;
  border-spacing:9.33px 0;
  position:relative;

@@ -3710,6 +3710,22 @@ a.waves-effect .waves-ripple {
  float:right;
  margin:6px 0
 }
+
+.result{
+    height:200px;
+    width:60%;
+    background:#7c7c7c;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#button{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+
 .lean-overlay {
  z-index:999;
  top:-100px;
