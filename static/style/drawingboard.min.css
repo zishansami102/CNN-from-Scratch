@@ -33,8 +33,10 @@
 #default-board{
     width:200px;
     height:200px;
-    margin-left: auto;
+    margin-left: 1%;
     margin-right: auto;
+    /*float: left;*/
+    display: inline-block
 }
 
 .drawing-board-cursor {

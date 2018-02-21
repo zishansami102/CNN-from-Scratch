@@ -3713,10 +3713,13 @@ a.waves-effect .waves-ripple {
 
 .result{
     height:200px;
-    width:60%;
+    width:30%;
     background:#7c7c7c;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 10%;
+    margin-right: 30%;
+    /*float: left;*/
+    display: inline-block
+
 }
 
 #button{
