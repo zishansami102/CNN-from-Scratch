@@ -33,7 +33,7 @@ def digit_process():
 		[filt1, filt2, bias1, bias2, theta3, bias3, _, _] = out
 		digit, probability = predict(img, filt1, filt2, bias1, bias2, theta3, bias3)
 		
-		data = { "digit":digit, "probability":probability }
+		data = { "digit":digit, "probability":np.round(probability,2) }
 		print data
 		return jsonify(data)
 

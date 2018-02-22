@@ -3714,9 +3714,9 @@ a.waves-effect .waves-ripple {
 .result{
     height:200px;
     width:30%;
-    background:#7c7c7c;
+    background:#dcdcdc;
     margin-left: 10%;
-    margin-right: 30%;
+/*    margin-right: 30%;*/
     /*float: left;*/
     display: inline-block
 

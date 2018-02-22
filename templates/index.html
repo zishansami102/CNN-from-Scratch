@@ -80,7 +80,7 @@
                         type: 'POST',
                         success: function (response) {
                             console.log(response);
-                            $('#result').html(JSON.stringify(response));
+                            $('#result').html("Prediction : "+response['digit']+"</br> Probability : "+response['probability']);
                         },
                         error: function (error) {
                             console.log(error);
