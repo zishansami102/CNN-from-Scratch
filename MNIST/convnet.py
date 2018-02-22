@@ -283,7 +283,11 @@ def predict(image, filt1, filt2, bias1, bias2, theta3, bias3):
 	pooled_layer = maxpool(conv2, 2, 2)	
 	fc1 = pooled_layer.reshape(((w2/2)*(w2/2)*l2,1))
 	out = theta3.dot(fc1) + bias3	#10*1
-	return np.argmax(out), np.max(out)
+	eout = np.exp(out, dtype=np.float)
+	probs = eout/sum(eout)
+	# print out
+	# print np.argmax(out), np.max(out)
+	return np.argmax(probs), np.max(probs)
 
 
 def extract_data(filename, num_images, IMAGE_WIDTH):

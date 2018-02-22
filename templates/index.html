@@ -28,7 +28,7 @@
                 <div class="col s10 offset-s1 m10 offset-m1">
                     <div class="container">
                         <div class="board" id="default-board" height="520"></div>
-                        <div class="result"></div>
+                        <div class="result", id="result">Value will be displayed here</div>
                         <button id="button" class="waves-effect waves-light btn" onclick=digit_process()>Submit</button>
                     </div>
                 </div>
@@ -80,6 +80,7 @@
                         type: 'POST',
                         success: function (response) {
                             console.log(response);
+                            $('#result').html(JSON.stringify(response));
                         },
                         error: function (error) {
                             console.log(error);
