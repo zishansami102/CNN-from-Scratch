@@ -1,19 +1,11 @@
 from flask import Flask, jsonify, render_template, request, flash, logging, session, redirect, url_for
 import numpy as np
-from PIL import Image
 import sys
 import pickle
 sys.path.insert(0, 'MNIST')
 
 from convnet import predict
-
-
-def preprocess(img):
-	img = np.array(img).reshape(1,28,28).astype(np.float32)
-	img = -(img-255)
-	img-= int(33.3952)
-	img/= int(78.6662)
-	return img
+from preprocessing import *
 
 app = Flask(__name__)
 @app.route('/')
@@ -33,7 +25,7 @@ def digit_process():
 		[filt1, filt2, bias1, bias2, theta3, bias3, _, _] = out
 		digit, probability = predict(img, filt1, filt2, bias1, bias2, theta3, bias3)
 		
-		data = { "digit":digit, "probability":np.round(probability,2) }
+		data = { "digit":digit, "probability":np.round(probability,3) }
 		print data
 		return jsonify(data)
 

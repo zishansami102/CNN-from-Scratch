@@ -19,22 +19,29 @@
     </div>
 </section>-->
 <section class="hide-on-small-only">
-    <div class="container">
+    <div class="container" style="text-align: center;">
         <a href="/"><img class="logo" src="{{ url_for('static', filename='circular_logo.png') }}" href="/" ></a>
         <h4 id="text" class="center-align with-subtitle" >Draw your digits here</h4>
         <h5 class="subtitle center-align">The digit drawn by you will be analysed by our algorithm.</h5>
         <div class="row center-align">
-            <div class="row">
-                <div class="col s10 offset-s1 m10 offset-m1">
+            <!-- <div class="row"> -->
+                <!-- <div class="col s10 offset-s1 m10 offset-m1"> -->
                     <div class="container">
-                        <div class="board" id="default-board" height="520"></div>
-                        <div class="result", id="result">Value will be displayed here</div>
-                        <button id="button" class="waves-effect waves-light btn" onclick=digit_process()>Submit</button>
+                        <div class="board" id="default-board" height="520" style="float:left;margin-left: 15%;"></div>
+                        <div class="result">
+                        <span id="result" style="margin:20px auto;font-family: Helvetica;font-size: 14px;color:#626262;">Value will be displayed here</span>
+                        
+                        </div>
                     </div>
-                </div>
-            </div>
+                    
+               <!--  </div> -->
+            <!-- </div> -->
         </div>
+         <button id="button" class="waves-effect waves-light btn" onclick=digit_process()>Submit</button>
     </div>
+    <footer style="text-align: center;">
+        <span style="">Copyright &copy; 2018 | Designed by : <a href="https://github.com/aashish-ak">Aashish Kumar</a><br>Powered by : <a href="https://github.com/zishansami102">Zishan Sami</a></span>
+    </footer>
 </section>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>

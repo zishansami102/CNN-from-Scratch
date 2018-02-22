@@ -3713,11 +3713,15 @@ a.waves-effect .waves-ripple {
 
 .result{
     height:200px;
-    width:30%;
+    width:200px;
     background:#dcdcdc;
-    margin-left: 10%;
-/*    margin-right: 30%;*/
+    float:left;
+    margin: 35px auto auto 20px;
+  /*  margin-left: 10%;
+*//*    margin-right: 30%;*/
     /*float: left;*/
+    border: 1px solid #6793ce;
+    text-align: center;
     display: inline-block
 
 }
@@ -5654,7 +5658,7 @@ p code {
 }
 @media only screen and (min-width:993px) {
  .container {
-  width:80%
+  width:70%
  }
 }
 * {
@@ -5665,8 +5669,10 @@ p code {
 body,html {
  min-width:100%!important;
  box-sizing:border-box;
- overflow-x:hidden;
- cursor:auto
+ overflow:hidden;
+ cursor:auto;
+ background-color: #f5f5f5;
+
 }
 code {
  border-radius:2px;
@@ -5849,9 +5855,10 @@ table.horizontal td.bordered {
  border-color:#26a69a
 }
 footer {
- background-color:#545D8E;
- min-height:200px;
- color:#fff
+	text-align: center;
+	font-family: Arial;
+	font-size: 12px;
+	color: #4b4b4b;
 }
 footer h4 {
  padding:15px 0
