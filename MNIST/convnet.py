@@ -285,6 +285,8 @@ def predict(image, filt1, filt2, bias1, bias2, theta3, bias3):
 	out = theta3.dot(fc1) + bias3	#10*1
 	eout = np.exp(out, dtype=np.float)
 	probs = eout/sum(eout)
+	# probs = 1/(1+np.exp(-out))
+
 	# print out
 	# print np.argmax(out), np.max(out)
 	return np.argmax(probs), np.max(probs)

@@ -3721,9 +3721,12 @@ a.waves-effect .waves-ripple {
 *//*    margin-right: 30%;*/
     /*float: left;*/
     border: 1px solid #6793ce;
-    text-align: center;
+  /*  text-align: center;*/
     display: inline-block
+}
 
+.digit{
+	font-size:90px;
 }
 
 #button{
@@ -5858,7 +5861,7 @@ footer {
 	text-align: center;
 	font-family: Arial;
 	font-size: 12px;
-	color: #4b4b4b;
+	color:#9b9b9b;
 }
 footer h4 {
  padding:15px 0

@@ -29,7 +29,7 @@
                     <div class="container">
                         <div class="board" id="default-board" height="520" style="float:left;margin-left: 15%;"></div>
                         <div class="result">
-                        <span id="result" style="margin:20px auto;font-family: Helvetica;font-size: 14px;color:#626262;">Value will be displayed here</span>
+                        <span id="result" style="margin:50px auto;font-family: Helvetica;font-size: 14px;color:#626262;">Value will be displayed here</span>
                         
                         </div>
                     </div>
@@ -37,10 +37,10 @@
                <!--  </div> -->
             <!-- </div> -->
         </div>
-         <button id="button" class="waves-effect waves-light btn" onclick=digit_process()>Submit</button>
+         <button id="button" class="waves-effect waves-light btn" onclick=digit_process()>Predict</button>
     </div>
     <footer style="text-align: center;">
-        <span style="">Copyright &copy; 2018 | Designed by : <a href="https://github.com/aashish-ak">Aashish Kumar</a><br>Powered by : <a href="https://github.com/zishansami102">Zishan Sami</a></span>
+        <span style="">Copyright &copy; 2018 | Designed by : <a href="https://github.com/aashish-ak">Aashish Kumar</a><br>Powered by : <a href="https://github.com/zishansami102">Zishan Sami</a> | <a href="https://github.com/zishansami102/CNN-from-Scratch">Github</a></span>
     </footer>
 </section>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> 
@@ -87,7 +87,7 @@
                         type: 'POST',
                         success: function (response) {
                             console.log(response);
-                            $('#result').html("Prediction : "+response['digit']+"</br> Probability : "+response['probability']);
+                            $('#result').html("Prediction : <br><span class='digit'>"+response['digit']+"</span></br> Probability : "+response['probability']);
                         },
                         error: function (error) {
                             console.log(error);
