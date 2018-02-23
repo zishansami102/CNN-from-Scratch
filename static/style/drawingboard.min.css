@@ -17,7 +17,7 @@
 .drawing-board-canvas-wrapper {
  position:relative;
  margin:0;
- border:1px solid #ddd
+ border: 1px solid #6793ce;
 }
 .drawing-board-canvas {
  position:relative;
