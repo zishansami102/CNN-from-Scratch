@@ -14,7 +14,6 @@ def index():
 
 @app.route('/digit_process', methods=['POST'])
 def digit_process():
-	
 	if(request.method == "POST"):
 		img = request.get_json()
 		img = preprocess(img)
