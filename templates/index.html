@@ -21,8 +21,9 @@
 <section class="hide-on-small-only">
     <div class="container" style="text-align: center;">
         <a href="/"><img class="logo" src="{{ url_for('static', filename='circular_logo.png') }}" href="/" ></a>
-        <h4 id="text" class="center-align with-subtitle" >Draw your digits here</h4>
-        <h5 class="subtitle center-align">The digit drawn will be analysed by our Scratch CNN Model</h5>
+        <h4 id="text" class="center-align with-subtitle" >CNN-from-Scratch</h4>
+        <h5 class="subtitle center-align">This is the demo of my project at <a href="https://github.com/zishansami102/CNN-from-Scratch" target="_blank">Github</a> </h5>
+        <h5 class="subtitle center-align">Draw a digit on the drawing board below and click on Predict</h5>
         <div class="row center-align">
             <!-- <div class="row"> -->
                 <!-- <div class="col s10 offset-s1 m10 offset-m1"> -->
@@ -79,6 +80,7 @@
 
         $(function () {
                 // $('button').click(function () {
+                    $('#result').html("Predicting . . .");
                     console.log("Function is successfully called")
                     $.ajax({
                         url: '/digit_process',
