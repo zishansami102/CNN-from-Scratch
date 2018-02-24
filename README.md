@@ -1,6 +1,6 @@
 # Convolutional Neural Network from scratch [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](http://cnndigits.pythonanywhere.com/)
 
-## [Live Demo](http://cnndigits.pythonanywhere.com/) 
+### [Live Demo](http://cnndigits.pythonanywhere.com/) 
 
 Objective of this work was to write the `Convolutional Neural Network` without using any Deep Learning Library to gain insights of what is actually happening and thus the algorithm is not optimised enough and hence is slow on large dataset like CIFAR-10.
 This piece of code could be used for `learning purpose` and could be implemented with trained parameter available in the respective folders for any testing applications like `Object Detection` and `Digit recognition`.<br/>
