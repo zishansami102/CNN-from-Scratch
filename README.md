@@ -7,16 +7,16 @@ This piece of code could be used for `learning purpose` and could be implemented
 `It's Accuracy on MNIST test set is above 97%.`
 
 
-![alt text](cifar.png)
-![alt text](mnist.png)
+![alt text](images/cifar.png)
+![alt text](images/mnist.png)
 
 ## Architecture
 
 INPUT - CONV1 - RELU - CONV2 - RELU- MAXPOOL - FC1 - OUT
 
-![alt text](archi_mnist.jpg)
+![alt text](images/archi_mnist.jpg)
 
-![alt text](archi_cifar.jpg)
+![alt text](images/archi_cifar.jpg)
 
 
 ## Getting Started 
@@ -60,7 +60,7 @@ python run.py
 
 Output:
 
-![alt text](training.png)
+![alt text](images/training.png)
 
 
 * To load pre-trained models, change the pickle filename from output.pickle to trained.pickle in run.py: `line No. - 27-28` and comment out the training part form the code in run.py: `line No. - 80-104`
