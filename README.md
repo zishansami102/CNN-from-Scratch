@@ -7,8 +7,8 @@ This piece of code could be used for `learning purpose` and could be implemented
 `It's Accuracy on MNIST test set is above 97%.`
 
 
-![alt text](images/cifar.png)
-![alt text](images/mnist.png)
+![alt text](images/main.png)
+
 
 ## Architecture
 
@@ -53,10 +53,10 @@ git clone https://github.com/zishansami102/CNN-from-Scratch
 ```
 
 * Downlad the dataset and copy that to it's corresponding folder(CIFAR-10/MNIST).
-* Move into the required directory and then run the following command to start training model
+* Move into the required directory (/CNN-from-Scratch/MNIST or /CNN-from-Scratch/CIFAR-10) and then run the following command to start training model
 
 ```
-python run.py
+python train.py
 ```
 
 Output:
@@ -64,7 +64,7 @@ Output:
 ![alt text](images/training.png)
 
 
-* To load pre-trained models, change the pickle filename from output.pickle to trained.pickle in run.py: `line No. - 30-31` and comment out the training part form the code in run.py: `line No. - 42-111`
+* To load pre-trained models, change the pickle filename from 'output.pickle' to 'trained.pickle' in run.py: `line No. - 30-31` and comment out the training part form the code in run.py: `line No. - 42-111`
 
 ### Application Testing/Running
 
