@@ -35,6 +35,7 @@ Followings are also required if working/testing on the app.py
 
 * [Flask](http://flask.pocoo.org/) - A microframework for Python
 * [Gunicorn](http://gunicorn.org/) - A Python WSGI HTTP Server for UNIX
+* [OpenCV](https://docs.opencv.org/trunk/d2/de6/tutorial_py_setup_in_ubuntu.html) -  An open-source library that includes several hundreds of computer vision algorithms
 
 ### Directories
 
@@ -63,30 +64,22 @@ Output:
 ![alt text](images/training.png)
 
 
-* To load pre-trained models, change the pickle filename from output.pickle to trained.pickle in run.py: `line No. - 27-28` and comment out the training part form the code in run.py: `line No. - 80-104`
+* To load pre-trained models, change the pickle filename from output.pickle to trained.pickle in run.py: `line No. - 30-31` and comment out the training part form the code in run.py: `line No. - 42-111`
 
+### Application Testing/Running
+
+* In the the directory /CNN-from-Scratch run the following command.
+
+```
+python app.py
+```
+App will start running on the local server [http://127.0.0.1:5000/](http://127.0.0.1:5000/) as shown below : 
+
+![alt text](images/app_running.png)
 
 ## Contributing
 
-### KWoC Action Plan
-[KWoC Google Group](https://groups.google.com/forum/#!forum/cnn-from-scratch)
-
-#### Short term Issues
-
-See the issue section of this repositiory
-
-#### Long term project
-
-
-Plan is to make a Web App which can predict the digit between 0 to 9 if the user writes anything on the app drawing board(using the functions written in convnet.py).
-Following are the steps in which we may proceed:
-
-* A python based Flask API which recieves image as input and gives digit prediction for that image as output
-* Front-end of the Web App which should have a drawing board on which the user will draw
-* Integration of the API with the front-end
-
-Respond on the [google group](https://groups.google.com/forum/#!forum/cnn-from-scratch) from the list above to know details and start the contribution
-
+Mail me at zishansami102@gmail.com if you want to contribute in this project
 
 ## Acknowledgments
 

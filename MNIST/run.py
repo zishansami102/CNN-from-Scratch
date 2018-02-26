@@ -26,8 +26,9 @@ NUM_FILT2 = 8
 BATCH_SIZE = 20
 NUM_EPOCHS = 2	 # number of iterations
 MU = 0.95
-# PICKLE_FILE = 'output.pickle'
-PICKLE_FILE = 'trained.pickle'
+
+PICKLE_FILE = 'output.pickle'
+# PICKLE_FILE = 'trained.pickle'
 
 
 ## Data extracting
