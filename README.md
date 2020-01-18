@@ -79,7 +79,7 @@ App will start running on the local server [http://127.0.0.1:5000/](http://127.0
 
 ## Contributing
 
-Mail me at zishansami102@gmail.com if you want to contribute in this project
+Mail me at zishansami102@gmail.com if you want to contribute in this project <br/>
 My homepage - [zishansami102.github.io](zishansami102.github.io)
 
 ## Acknowledgments
