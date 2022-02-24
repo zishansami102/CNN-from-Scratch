@@ -14,13 +14,13 @@ def nanargmax(a):
 
 def maxpool(X, f, s):
 	(l, w, w) = X.shape
-	pool = np.zeros((l, (w-f)/s+1,(w-f)/s+1))
+	pool = np.zeros((l, int((w-f)/s+1),int((w-f)/s+1))) 
 	for jj in range(0,l):
 		i=0
 		while(i<w):
 			j=0
 			while(j<w):
-				pool[jj,i/2,j/2] = np.max(X[jj,i:i+f,j:j+f])
+				pool[jj,int(i/2),int(j/2)] = np.max(X[jj,i:i+f,j:j+f])
 				j+=s
 			i+=s
 	return pool
@@ -74,7 +74,7 @@ def ConvNet(image, label, filt1, filt2, bias1, bias2, theta3, bias3):
 	## Pooled layer with 2*2 size and stride 2,2
 	pooled_layer = maxpool(conv2, 2, 2)	
 
-	fc1 = pooled_layer.reshape(((w2/2)*(w2/2)*l2,1))
+	fc1 = pooled_layer.reshape((int((w2/2)*(w2/2))*l2,1))
 	
 	out = theta3.dot(fc1) + bias3	#10*1
 	
@@ -97,7 +97,8 @@ def ConvNet(image, label, filt1, filt2, bias1, bias2, theta3, bias3):
 
 	dfc1 = theta3.T.dot(dout)		##	dL/dfc1
 
-	dpool = dfc1.T.reshape((l2, w2/2, w2/2))
+	dpool = dfc1.T.reshape((l2, int(w2/2), int(w2/2)))
+	 
 
 	dconv2 = np.zeros((l2, w2, w2))
 	
@@ -107,7 +108,7 @@ def ConvNet(image, label, filt1, filt2, bias1, bias2, theta3, bias3):
 			j=0
 			while(j<w2):
 				(a,b) = nanargmax(conv2[jj,i:i+2,j:j+2]) ## Getting indexes of maximum value in the array
-				dconv2[jj,i+a,j+b] = dpool[jj,i/2,j/2]
+				dconv2[jj,i+a,j+b] = dpool[jj,int(i/2),int(j/2)]
 				j+=2
 			i+=2
 	
