@@ -87,3 +87,7 @@ My homepage - [zishansami102.github.io](https://zishansami102.github.io/)
 * [CS231n.stanford.edu](http://cs231n.stanford.edu/) - Most of the theorotical concepts are taken from here
 * [dorajam](https://github.com/dorajam/Convolutional-Network) - Used to gain more concepts
 * [Mathematical Concepts](http://www.jefkine.com/general/2016/09/05/backpropagation-in-convolutional-neural-networks/) - Still need to be implemented, but helpful to gain insight
+
+
+## Other Proud Works
+Executable solutions for CaptureTheEther - [capture-the-ether-sols](https://github.com/zishansami102/capture-the-ether-sols)
