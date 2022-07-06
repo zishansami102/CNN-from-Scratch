@@ -4,7 +4,7 @@ import sys
 import pickle
 sys.path.insert(0, 'MNIST')
 
-from convnet import predict
+from MNIST.convnet import predict
 from preprocessing import *
 
 app = Flask(__name__)
@@ -26,7 +26,7 @@ def digit_process():
 		digit, probability = predict(img, filt1, filt2, bias1, bias2, theta3, bias3)
 		
 		data = { "digit":digit, "probability":np.round(probability,3) }
-		print data
+		print(data)
 		return jsonify(data)
 
 if __name__ == "__main__":
