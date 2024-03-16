@@ -33,14 +33,14 @@ These instructions will get you a copy of the project up and running on your loc
 
 Followings are also required if working/testing on the app.py
 
-* [Flask](http://flask.pocoo.org/) - A microframework for Python
-* [Gunicorn](http://gunicorn.org/) - A Python WSGI HTTP Server for UNIX
-* [OpenCV](https://docs.opencv.org/trunk/d2/de6/tutorial_py_setup_in_ubuntu.html) -  An open-source library that includes several hundreds of computer vision algorithms
+* [Flask]() - A microframework for Python
+* [Gunicorn]() - A Python WSGI HTTP Server for UNIX
+* [OpenCV]() -  An open-source library that includes several hundreds of computer vision algorithms
 
 ### Directories
 
-- `CIFAR-10 `: Object detection with [CIFAR-10](http://www.cs.toronto.edu/~kriz/cifar.html)
-- `MNIST `: Handwritten Digits Recognition with [MNIST](http://yann.lecun.com/exdb/mnist/)
+- `CIFAR-10 `: Object detection with [CIFAR-10]()
+- `MNIST `: Handwritten Digits Recognition with [MNIST]()
 
 
 
@@ -73,14 +73,13 @@ Output:
 ```
 python app.py
 ```
-App will start running on the local server [http://127.0.0.1:5000/](http://127.0.0.1:5000/) as shown below : 
+App will start running on the local server http://127.0.0.1:5000 as shown below : 
 
 ![alt text](images/app_running.png)
 
 ## Contributing
 
-Mail me at zishansami102@gmail.com if you want to contribute in this project <br/>
-My homepage - [zishansami102.github.io](https://zishansami102.github.io/)
+Mail me at zishansami102@gmail.com if you want to contribute to this project <br/>
 
 ## Acknowledgments
 
