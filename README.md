@@ -89,5 +89,5 @@ My homepage - [zishansami102.github.io](https://zishansami102.github.io/)
 * [Mathematical Concepts](http://www.jefkine.com/general/2016/09/05/backpropagation-in-convolutional-neural-networks/) - Still need to be implemented, but helpful to gain insight
 
 
-## Other Proud Works
-An AI Powered Website Builder: Make websites using AI  - [Makeweb.ai](https://makeweb.ai)
+## Other Proud Works: An AI Powered Website Builder
+Build websites with AI, publish in seconds  - [Makeweb.ai](https://makeweb.ai)
