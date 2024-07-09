@@ -89,4 +89,5 @@ Mail me at zishansami102@gmail.com if you want to contribute to this project <br
 
 
 ## Other Proud Works: An AI Powered Website Builder
-Build websites with AI, publish in seconds  - [Makeweb.ai](https://makeweb.ai)
+Makeweb.ai - [Build websites with AI, publish in seconds](https://makeweb.ai/)
+EazySEO.co  - [Automate your SEO start to end](https://eazyseo.co/)
