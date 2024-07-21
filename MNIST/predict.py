@@ -26,4 +26,4 @@ out = pickle.load(pickle_in)
 for i in range(20,50):
 	image = X[i].reshape(IMG_DEPTH, IMG_WIDTH, IMG_WIDTH)
 	digit, prob = predict(image, filt1, filt2, bias1, bias2, theta3, bias3)
-	print digit, prob, y[i][0]
+	print(digit, prob, y[i][0])
